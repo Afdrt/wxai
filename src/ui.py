@@ -20,6 +20,8 @@ class ChatWindow(QMainWindow):
         self.setWindowTitle(self.config.get('window_title', '微信AI助手'))
         self.resize(*self.config.get('window_size', (800, 600)))
         
+
+        
         # 创建中心部件和布局
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
@@ -53,6 +55,11 @@ class ChatWindow(QMainWindow):
         
         config_group.setLayout(config_layout)
         layout.addWidget(config_group)
+        
+        # 设置默认配置值
+        self.api_key_input.setText(self.config.get('api_key', ''))
+        self.api_base_input.setText(self.config.get('service', ''))
+        self.target_input.setText(', '.join(self.config.get('listen_targets', [])))
         
         # 创建控制按钮
         button_layout = QHBoxLayout()
@@ -95,13 +102,10 @@ class ChatWindow(QMainWindow):
         """获取当前配置"""
         config = {
             'api_key': self.api_key_input.text(),
-            'listen_targets': [t.strip() for t in self.target_input.text().split(',') if t.strip()]
+            'listen_targets': [t.strip() for t in self.target_input.text().split(',') if t.strip()],
+            'service': self.api_base_input.text().strip() or self.config.get('service', '')
         }
         
-        api_base = self.api_base_input.text().strip()
-        if api_base:
-            config['api_base'] = api_base
-            
         self.save_config(config)
         return config
         

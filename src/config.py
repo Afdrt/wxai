@@ -15,9 +15,9 @@ WECHAT_CONFIG = {
 # AI配置
 AI_CONFIG = {
     # 这里可以配置不同的AI服务，如OpenAI、Azure等
-    'service': 'openai',
-    'api_key': '',  # 在实际使用时需要填入有效的API密钥
-    'model': 'gpt-3.5-turbo',
+    'service': 'https://api.siliconflow.cn/v1',
+    'api_key': 'sk-teubpqfpiinyfwcehgqqvrphjosxuipmebakmewxtzmebyee',  # 在实际使用时需要填入有效的API密钥
+    'model': 'deepseek-ai/DeepSeek-R1-Distill-Qwen-7B',
     'temperature': 0.7,
     'max_tokens': 1000
 }

@@ -1,0 +1,7 @@
+{
+    "api_key": "sk-teubpqfpiinyfwcehgqqvrphjosxuipmebakmewxtzmebyee",
+    "listen_targets": [
+        "文件传输助手"
+    ],
+    "service": "https://api.siliconflow.cn/v1"
+}
