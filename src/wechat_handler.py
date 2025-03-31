@@ -70,29 +70,17 @@ class WeChatHandler:
                         self.process_message(msg) for msg in new_messages
                     ]
         else:
-            if self.wx.CheckNewMessage():
-                new_msg = self.wx.GetNextNewMessage(
-                    savepic=self.save_media.get('savepic', True),
-                    savefile=self.save_media.get('savefile', True),
-                    savevoice=self.save_media.get('savevoice', True)
-                )
-                
-                if new_msg:
-                    for chat_name, messages in new_msg.items():
-                        processed_messages = []
-                        for msg in messages:
-                            if isinstance(msg, (list, tuple)) and len(msg) > 3:
-                                msg_id = msg[-1]
-                                if chat_name not in self.last_msg_ids or msg_id not in self.last_msg_ids[chat_name]:
-                                    processed_messages.append(self.process_message(msg))
-                                    if chat_name not in self.last_msg_ids:
-                                        self.last_msg_ids[chat_name] = []
-                                    self.last_msg_ids[chat_name].append(msg_id)
-                            else:
-                                processed_messages.append(self.process_message(msg))
-                        
-                        if processed_messages:
-                            messages_by_sender[chat_name] = processed_messages
+            new_msg = self.wx.GetNextNewMessage(
+                savepic=self.save_media.get('savepic', True),
+                savefile=self.save_media.get('savefile', True),
+                savevoice=self.save_media.get('savevoice', True)
+            )
+            
+            if new_msg:
+                for chat_name, messages in new_msg.items():
+                    messages_by_sender[chat_name] = [
+                        self.process_message(msg) for msg in messages
+                    ]
         
         return messages_by_sender
     
