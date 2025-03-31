@@ -66,8 +66,11 @@ class WeChatHandler:
             for target in self.listen_targets:
                 new_messages = self.wx.GetListenMessage(target)
                 if new_messages:
+                    print(f"从{target}接收到{len(new_messages)}条新消息")
+                    # 过滤掉AI自己发送的消息
                     messages_by_sender[target] = [
-                        self.process_message(msg) for msg in new_messages
+                        self.process_message(msg) for msg in new_messages 
+                        if not (isinstance(msg, (list, tuple)) and len(msg) > 3 and msg[3] == 'AI')
                     ]
         else:
             new_msg = self.wx.GetNextNewMessage(
@@ -80,6 +83,7 @@ class WeChatHandler:
                 for chat_name, messages in new_msg.items():
                     messages_by_sender[chat_name] = [
                         self.process_message(msg) for msg in messages
+                        if not (isinstance(msg, (list, tuple)) and len(msg) > 3 and msg[3] == 'AI')
                     ]
         
         return messages_by_sender
@@ -87,7 +91,9 @@ class WeChatHandler:
     def send_message(self, content: str, target: str) -> bool:
         """发送消息到指定目标"""
         try:
-            self.wx.SendMsg(content, who=target)
+            # 添加AI标记作为第四个参数
+            print(f"正在向{target}发送AI回复: {content}")
+            self.wx.SendMsg(content, who=target, extra='AI')
             return True
         except Exception as e:
             print(f"向 {target} 发送消息失败: {str(e)}")
