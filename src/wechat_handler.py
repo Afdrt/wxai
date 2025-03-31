@@ -114,10 +114,3 @@ class WeChatHandler:
                 except Exception as e:
                     print(f"移除监听对象 {target} 失败: {str(e)}")
     
-    def get_friends(self) -> List[Dict[str, str]]:
-        """获取好友列表"""
-        return self.wx.GetAllFriends()
-    
-    def get_groups(self) -> List[Dict[str, str]]:
-        """获取群组列表"""
-        return self.wx.GetAllChatrooms()

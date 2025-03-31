@@ -49,6 +49,10 @@ class ChatWindow(QMainWindow):
         self.api_base_input.setPlaceholderText('默认使用OpenAI官方地址')
         config_layout.addRow('服务地址:', self.api_base_input)
         
+        self.model_input = QLineEdit()
+        self.model_input.setPlaceholderText('请输入模型名称')
+        config_layout.addRow('模型名称:', self.model_input)
+        
         # 监听目标配置
         self.target_input = QLineEdit()
         config_layout.addRow('监听目标:', self.target_input)
@@ -59,6 +63,7 @@ class ChatWindow(QMainWindow):
         # 设置默认配置值
         self.api_key_input.setText(self.config.get('api_key', ''))
         self.api_base_input.setText(self.config.get('service', ''))
+        self.model_input.setText(self.config.get('model', ''))
         self.target_input.setText(', '.join(self.config.get('listen_targets', [])))
         
         # 创建控制按钮
@@ -103,7 +108,8 @@ class ChatWindow(QMainWindow):
         config = {
             'api_key': self.api_key_input.text(),
             'listen_targets': [t.strip() for t in self.target_input.text().split(',') if t.strip()],
-            'service': self.api_base_input.text().strip() or self.config.get('service', '')
+            'service': self.api_base_input.text().strip() or self.config.get('service', ''),
+            'model': self.model_input.text().strip() or self.config.get('model', '')
         }
         
         self.save_config(config)
@@ -133,3 +139,4 @@ class ChatWindow(QMainWindow):
         self.stop_button.setEnabled(is_running)
         self.api_key_input.setEnabled(not is_running)
         self.target_input.setEnabled(not is_running)
+        self.model_input.setEnabled(not is_running)
