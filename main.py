@@ -1,5 +1,8 @@
 import sys
 import time
+from collections import deque
+from datetime import datetime, timedelta
+from typing import Optional
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtCore import QThread, pyqtSignal, Qt
 from PyQt5.QtGui import QTextCursor
@@ -7,21 +10,30 @@ from src.config import WECHAT_CONFIG, AI_CONFIG, UI_CONFIG
 from src.wechat_handler import WeChatHandler
 from src.ai_handler import AIHandler
 from src.ui import ChatWindow
+from src.message_cache import MessageCache
 
 # 注册 QTextCursor 类型
 from PyQt5.QtCore import QMetaType
 QMetaType.type("QTextCursor")
 
+from src.message_cache import MessageCache
+
 class MessageMonitor(QThread):
-    message_received = pyqtSignal(str, dict)
-    status_updated = pyqtSignal(str)
+    message_received = pyqtSignal(str, dict)  # 添加这行
+    status_updated = pyqtSignal(str)  # 添加这行
     
     def __init__(self, wechat_handler: WeChatHandler, ai_handler: AIHandler):
         super().__init__()
         self.wechat = wechat_handler
         self.ai = ai_handler
         self.running = False
-    
+        # 用户消息缓存
+        self.message_cache = MessageCache()
+        self.user_last_request = {}  # 记录用户最后请求时间
+        self.user_request_count = {}  # 记录用户请求次数
+        self.cooldown_time = 10  # 用户冷却时间（秒）
+        self.max_requests = 5  # 每个用户在冷却时间内的最大请求次数
+
     def run(self):
         self.running = True
         while self.running:
@@ -33,30 +45,34 @@ class MessageMonitor(QThread):
                         
                         # 处理文本消息
                         if msg['type'] == 'Text' or msg['type'] == '文本消息':
-                            # 增加判断，跳过AI自己发送的消息
                             if sender == 'AI助手' or msg.get('id') == 'ai_response':
                                 continue
                             
-                            # 检查AI回复开关是否打开
                             if not self.wechat.ui.is_auto_reply_enabled():
                                 continue
-                                
-                            try:
-                                # 获取AI响应
-                                ai_response = self.ai.process_message(msg['content'])
-                                if ai_response:
-                                    # 发送AI响应
-                                    if self.wechat.send_message(ai_response, sender):
-                                        self.message_received.emit('AI助手', {
-                                            'type': 'Text',
-                                            'content': ai_response,
-                                            'time': msg['time'],
-                                            'id': 'ai_response'
-                                        })
-                                    else:
-                                        self.status_updated.emit(f'发送消息到 {sender} 失败')
-                            except Exception as e:
-                                self.status_updated.emit(f'AI处理失败: {str(e)}')
+                            
+                            # 缓存消息
+                            self.message_cache.add_message(sender, msg['content'])
+                            
+                            # 处理缓存的消息
+                            combined_message = self.message_cache.get_combined_messages(sender)
+                            if combined_message:
+                                try:
+                                    # 发送合并后的消息给AI
+                                    ai_response = self.ai.process_message(f"用户发送了以下多条消息：\n{combined_message}\n请统一回复这些消息。")
+                                    if ai_response:
+                                        if self.wechat.send_message(ai_response, sender):
+                                            self.message_received.emit('AI助手', {
+                                                'type': 'Text',
+                                                'content': ai_response,
+                                                'time': msg['time'],
+                                                'id': 'ai_response'
+                                            })
+                                        else:
+                                            self.status_updated.emit(f'发送消息到 {sender} 失败')
+                                except Exception as e:
+                                    self.status_updated.emit(f'AI处理失败: {str(e)}')
+            
             except Exception as e:
                 self.status_updated.emit(f'监听出错: {str(e)}')
             
