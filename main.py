@@ -28,6 +28,10 @@ class MessageMonitor(QThread):
                         
                         # 处理文本消息
                         if msg['type'] == 'Text' or msg['type'] == '文本消息':
+                            # 增加判断，跳过AI自己发送的消息
+                            if sender == 'AI助手' or msg.get('id') == 'ai_response':
+                                continue
+                                
                             try:
                                 # 获取AI响应
                                 ai_response = self.ai.process_message(msg['content'])
