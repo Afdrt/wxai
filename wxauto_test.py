@@ -350,16 +350,20 @@ class WeChatTestApp:
             return
         
         who = self.chat_with_entry.get().strip()
-        at_text = self.at_entry.get().strip()
-        at_list = [name.strip() for name in at_text.split(",")] if at_text else None
+        if not who:
+            messagebox.showerror("错误", "请输入聊天对象")
+            return
         
         def _send_message():
             try:
-                self.wx.SendMsg(msg, who=who if who else None, at=at_list)
-                self.log_output(f"已发送消息{'给 ' + who if who else ''}")
-                self.log_output(f"消息内容: {msg}")
-                if at_list:
-                    self.log_output(f"@成员: {', '.join(at_list)}")
+                # 先切换到目标聊天
+                if self.wx.ChatWith(who):
+                    # 切换成功后发送消息
+                    self.wx.SendMsg(msg)
+                    self.log_output(f"已发送消息给 {who}")
+                    self.log_output(f"消息内容: {msg}")
+                else:
+                    self.log_output(f"切换到聊天对象 {who} 失败")
             except Exception as e:
                 self.log_output(f"发送消息失败: {str(e)}")
         

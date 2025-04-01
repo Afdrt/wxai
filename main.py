@@ -27,18 +27,23 @@ class MessageMonitor(QThread):
                         self.message_received.emit(sender, msg)
                         
                         # 处理文本消息
-                        if msg['type'] == 'Text':
-                            # 获取AI响应
-                            ai_response = self.ai.process_message(msg['content'])
-                            if ai_response:
-                                # 发送AI响应
-                                if self.wechat.send_message(ai_response, sender):
-                                    self.message_received.emit('AI助手', {
-                                        'type': 'Text',
-                                        'content': ai_response,
-                                        'time': msg['time'],
-                                        'id': 'ai_response'
-                                    })
+                        if msg['type'] == 'Text' or msg['type'] == '文本消息':
+                            try:
+                                # 获取AI响应
+                                ai_response = self.ai.process_message(msg['content'])
+                                if ai_response:
+                                    # 发送AI响应
+                                    if self.wechat.send_message(ai_response, sender):
+                                        self.message_received.emit('AI助手', {
+                                            'type': 'Text',
+                                            'content': ai_response,
+                                            'time': msg['time'],
+                                            'id': 'ai_response'
+                                        })
+                                    else:
+                                        self.status_updated.emit(f'发送消息到 {sender} 失败')
+                            except Exception as e:
+                                self.status_updated.emit(f'AI处理失败: {str(e)}')
             except Exception as e:
                 self.status_updated.emit(f'监听出错: {str(e)}')
             

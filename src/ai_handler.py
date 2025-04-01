@@ -21,49 +21,31 @@ class AIHandler:
         self.service = 'openai'  # 默认使用openai服务
         self.setup_service()
     
-    def setup_service(self) -> None:
-        """设置AI服务配置"""
-        try:
-            # 配置API密钥
-            api_key = self.config.get('api_key')
-            if not api_key:
-                raise ConfigurationError('API密钥未配置')
-            openai.api_key = api_key
-            
-            # 配置API服务地址
-            service_url = self.config.get('service')
-            if service_url:
-                openai.api_base = service_url
-                self.logger.info(f'使用自定义服务地址: {service_url}')
-            
-            self.logger.info('成功配置AI服务')
-        except Exception as e:
-            self.logger.error(f'设置AI服务失败: {str(e)}')
-            raise ConfigurationError(f'设置AI服务失败: {str(e)}')
-    
     def process_message(self, message: str, context: List[Dict] = None) -> Optional[str]:
-        """处理消息并获取AI响应
-        
-        Args:
-            message: 用户输入的消息
-            context: 可选的上下文消息列表，每个消息是包含role和content的字典
-        
-        Returns:
-            AI的响应文本，如果处理失败则返回None
-        
-        Raises:
-            ProcessingError: 消息处理过程中发生错误
-        """
+        """处理消息并获取AI响应"""
         try:
-            messages = []
+            self.logger.info(f'开始处理消息: {message}')
+            messages = [
+                {
+                    "role": "system",
+                    "content": "你是一个友好的AI助手，请用简洁自然的方式回复用户的问题。"
+                }
+            ]
             if context:
+                self.logger.debug(f'使用上下文: {context}')
                 messages.extend(context)
             messages.append({
                 'role': 'user',
                 'content': message
             })
             
-            response = openai.ChatCompletion.create(
+            self.logger.info(f'使用模型 {self.config.get("model")} 发送请求')
+            client = openai.OpenAI(
+                api_key=self.config['api_key'],
+                base_url=self.config.get('service')
+            )
+            
+            response = client.chat.completions.create(
                 model=self.config.get('model'),
                 messages=messages,
                 temperature=self.config.get('temperature', 0.7),
@@ -71,12 +53,36 @@ class AIHandler:
             )
             
             reply = response.choices[0].message.content
-            self.logger.debug(f'AI响应: {reply}')
+            self.logger.info(f'收到AI响应: {reply[:100]}{"..." if len(reply) > 100 else ""}')
             return reply
         except Exception as e:
             error_msg = f'处理消息失败: {str(e)}'
-            self.logger.error(error_msg)
+            self.logger.error(error_msg, exc_info=True)  # 添加异常堆栈信息
             raise ProcessingError(error_msg)
+    
+    def setup_service(self) -> None:
+        """设置AI服务配置"""
+        try:
+            self.logger.info('开始配置AI服务...')
+            # 配置API密钥
+            api_key = self.config.get('api_key')
+            if not api_key:
+                self.logger.error('API密钥未配置')
+                raise ConfigurationError('API密钥未配置')
+            openai.api_key = api_key
+            self.logger.debug('API密钥配置成功')
+            
+            # 配置API服务地址
+            service_url = self.config.get('service')
+            if service_url:
+                openai.api_base = service_url
+                self.logger.info(f'使用自定义服务地址: {service_url}')
+            
+            self.logger.info('AI服务配置完成')
+        except Exception as e:
+            error_msg = f'设置AI服务失败: {str(e)}'
+            self.logger.error(error_msg, exc_info=True)  # 添加异常堆栈信息
+            raise ConfigurationError(error_msg)
     
     def update_config(self, new_config: Dict) -> None:
         """更新AI配置

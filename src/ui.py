@@ -130,7 +130,12 @@ class ChatWindow(QMainWindow):
         main_layout.addLayout(content_layout)
         
         # 底部控制面板
+        # 在控制面板中添加自动回复开关
         control_panel = QHBoxLayout()
+        
+        self.auto_reply_checkbox = QCheckBox('启用AI自动回复')
+        self.auto_reply_checkbox.setChecked(True)  # 默认开启
+        control_panel.addWidget(self.auto_reply_checkbox)
         
         # 控制按钮
         self.start_button = QPushButton('开始监听')
@@ -244,3 +249,7 @@ class ChatWindow(QMainWindow):
         if dialog.exec_() == QDialog.Accepted:
             self.config.update(dialog.get_config())
             self.save_config(self.config)
+
+    def is_auto_reply_enabled(self) -> bool:
+            """获取自动回复开关状态"""
+            return self.auto_reply_checkbox.isChecked()

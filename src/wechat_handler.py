@@ -58,7 +58,7 @@ class WeChatHandler:
                 msg_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                 msg_id = "系统消息ID"
             else:
-                msg_type = msg[0] if isinstance(msg, (list, tuple)) and len(msg) > 0 else "未知类型"
+                msg_type = msg[0] if isinstance(msg, (list, tuple)) and len(msg) > 0 else "文本消息"
                 msg_content = msg[1] if isinstance(msg, (list, tuple)) and len(msg) > 1 else str(msg)
                 msg_time = msg[2] if isinstance(msg, (list, tuple)) and len(msg) > 2 else datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                 msg_id = msg[-1] if isinstance(msg, (list, tuple)) and len(msg) > 3 else "未知ID"
@@ -120,7 +120,7 @@ class WeChatHandler:
                 }
             else:
                 return {
-                    'type': msg[0] if isinstance(msg, (list, tuple)) and len(msg) > 0 else '未知类型',
+                    'type': msg[0] if isinstance(msg, (list, tuple)) and len(msg) > 0 else '文本消息',
                     'content': msg[1] if isinstance(msg, (list, tuple)) and len(msg) > 1 else str(msg),
                     'time': msg[2] if isinstance(msg, (list, tuple)) and len(msg) > 2 else datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
                     'id': msg[-1] if isinstance(msg, (list, tuple)) and len(msg) > 3 else f'msg_{time.time()}'
@@ -132,4 +132,28 @@ class WeChatHandler:
                 'time': datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
                 'id': f'error_{time.time()}'
             }
+
+    def send_message(self, message: str, target: str) -> bool:
+        """发送消息到指定目标
+        
+        Args:
+            message: 要发送的消息
+            target: 目标聊天对象
+            
+        Returns:
+            bool: 发送是否成功
+        """
+        try:
+            # 直接使用 SendMsg 方法，通过 who 参数指定接收者
+            self.wx.SendMsg(message, who=target)
+            return True
+        except Exception as e:
+            if self.ui:
+                self.ui.add_message('系统', {
+                    'type': '错误',
+                    'content': f'发送消息到 {target} 失败: {str(e)}',
+                    'time': datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                    'id': f'error_send_{time.time()}'
+                })
+            return False
     
