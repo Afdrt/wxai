@@ -100,4 +100,36 @@ class WeChatHandler:
                             'id': f'error_add_listen_{target}'
                         })
         return success_targets
+
+    def _process_message(self, msg) -> Dict[str, str]:
+        """处理单条消息
+        
+        Args:
+            msg: 原始消息对象
+            
+        Returns:
+            处理后的消息字典，包含 type, content, time, id 等字段
+        """
+        try:
+            if hasattr(msg, '__class__') and msg.__class__.__name__ == 'SysMessage':
+                return {
+                    'type': '系统消息',
+                    'content': str(msg),
+                    'time': datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                    'id': f'sys_{time.time()}'
+                }
+            else:
+                return {
+                    'type': msg[0] if isinstance(msg, (list, tuple)) and len(msg) > 0 else '未知类型',
+                    'content': msg[1] if isinstance(msg, (list, tuple)) and len(msg) > 1 else str(msg),
+                    'time': msg[2] if isinstance(msg, (list, tuple)) and len(msg) > 2 else datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                    'id': msg[-1] if isinstance(msg, (list, tuple)) and len(msg) > 3 else f'msg_{time.time()}'
+                }
+        except Exception as e:
+            return {
+                'type': '处理错误',
+                'content': f'消息处理错误: {str(e)}, 原始消息: {str(msg)}',
+                'time': datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                'id': f'error_{time.time()}'
+            }
     
