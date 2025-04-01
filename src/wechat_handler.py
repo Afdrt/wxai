@@ -2,6 +2,7 @@ from wxauto import WeChat
 import datetime
 import time
 from typing import Dict, List, Optional
+import threading
 
 class WeChatHandler:
     def __init__(self, config: dict):
@@ -86,19 +87,40 @@ class WeChatHandler:
     def setup_listeners(self) -> List[str]:
         """设置监听对象并返回成功添加的监听对象列表"""
         success_targets = []
-        if self.listen_targets:
-            for target in self.listen_targets:
-                try:
-                    self.wx.AddListenChat(target, savepic=True, savefile=True, savevoice=True)
-                    success_targets.append(target)
-                except Exception as e:
-                    if self.ui:
-                        self.ui.add_message('系统', {
-                            'type': '错误',
-                            'content': f"添加监听对象 {target} 失败: {str(e)}",
-                            'time': datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-                            'id': f'error_add_listen_{target}'
-                        })
+        if not self.listen_targets:
+            return success_targets
+            
+        def _setup_listener(target: str):
+            try:
+                self.wx.AddListenChat(target, savepic=True, savefile=True, savevoice=True)
+                success_targets.append(target)
+                if self.ui:
+                    self.ui.add_message('系统', {
+                        'type': '提示',
+                        'content': f"成功添加监听对象: {target}",
+                        'time': datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                        'id': f'success_add_listen_{target}'
+                    })
+            except Exception as e:
+                if self.ui:
+                    self.ui.add_message('系统', {
+                        'type': '错误',
+                        'content': f"添加监听对象 {target} 失败: {str(e)}",
+                        'time': datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                        'id': f'error_add_listen_{target}'
+                    })
+
+        # 创建并启动所有监听线程
+        threads = []
+        for target in self.listen_targets:
+            thread = threading.Thread(target=_setup_listener, args=(target,), daemon=True)
+            thread.start()
+            threads.append(thread)
+        
+        # 等待所有线程完成，但最多等待5秒
+        for thread in threads:
+            thread.join(timeout=5)
+            
         return success_targets
 
     def _process_message(self, msg) -> Dict[str, str]:

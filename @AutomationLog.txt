@@ -10,3 +10,4 @@
 2025-04-01 14:19:07.008 wxauto.py[574] AddListenChat -> Can not move cursor. ListItemControl's BoundingRectangle is (0,0,0,0)[0x0]. SearchProperties: {RegexName: '微信支付', ControlType: ListItemControl}
 2025-04-01 16:08:39.423 wxauto.py[316] ChatWith -> Can not move cursor. ListItemControl's BoundingRectangle is (0,0,0,0)[0x0]. SearchProperties: {RegexName: '文件传输助手', ControlType: ListItemControl}
 2025-04-01 16:08:39.452 wxauto.py[574] AddListenChat -> Can not move cursor. ListItemControl's BoundingRectangle is (0,0,0,0)[0x0]. SearchProperties: {RegexName: '文件传输助手', ControlType: ListItemControl}
+2025-04-01 16:51:39.307 wxauto.py[574] AddListenChat -> Can not move cursor. ListItemControl's BoundingRectangle is (0,0,0,0)[0x0]. SearchProperties: {RegexName: '文件传输助手', ControlType: ListItemControl}
