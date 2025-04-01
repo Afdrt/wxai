@@ -31,6 +31,10 @@ class MessageMonitor(QThread):
                             # 增加判断，跳过AI自己发送的消息
                             if sender == 'AI助手' or msg.get('id') == 'ai_response':
                                 continue
+                            
+                            # 检查AI回复开关是否打开
+                            if not self.wechat.ui.is_auto_reply_enabled():
+                                continue
                                 
                             try:
                                 # 获取AI响应
