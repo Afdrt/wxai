@@ -9,8 +9,28 @@ from typing import Dict, List, Optional, Callable
 class ConfigDialog(QDialog):
     def __init__(self, config: dict, parent=None):
         super().__init__(parent)
-        self.config = config
+        self.config = config.copy()  # 创建配置的副本
+        self.config_file = os.path.join(os.path.dirname(__file__), '..', 'config.json')
         self.init_ui()
+    
+    def accept(self):
+        """当用户点击确定时保存配置"""
+        try:
+            # 获取UI中的值
+            new_config = {
+                'api_key': self.api_key_input.text(),
+                'service': self.api_base_input.text().strip(),
+                'model': self.model_input.text().strip(),
+                'listen_targets': self.config.get('listen_targets', [])  # 保持原有的监听目标
+            }
+            
+            # 保存到文件
+            with open(self.config_file, 'w', encoding='utf-8') as f:
+                json.dump(new_config, f, indent=4, ensure_ascii=False)
+            
+            super().accept()
+        except Exception as e:
+            QMessageBox.critical(self, '错误', f'保存配置失败: {str(e)}')
     
     def init_ui(self):
         self.setWindowTitle('配置')
@@ -168,6 +188,21 @@ class ChatWindow(QMainWindow):
     
     def get_config(self) -> Dict:
         """获取当前配置"""
+        try:
+            # 从配置文件读取基础配置
+            with open(self.config_file, 'r', encoding='utf-8') as f:
+                config = json.load(f)
+            
+            # 更新监听目标列表
+            config['listen_targets'] = [
+                self.target_list.item(i).text()
+                for i in range(self.target_list.count())
+            ]
+            return config
+            
+        except Exception as e:
+            print(f"读取配置文件失败: {str(e)}")
+            return {}
         config = self.config.copy()
         config['listen_targets'] = [
             self.target_list.item(i).text()
@@ -201,11 +236,7 @@ class ChatWindow(QMainWindow):
     
     def set_running_state(self, is_running: bool) -> None:
         """设置运行状态"""
-        self.start_button.setEnabled(not is_running)
-        self.stop_button.setEnabled(is_running)
-        self.api_key_input.setEnabled(not is_running)
-        self.target_input.setEnabled(not is_running)
-        self.model_input.setEnabled(not is_running)
+    
     
     def show_config_dialog(self):
         """显示配置对话框"""

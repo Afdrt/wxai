@@ -1,4 +1,9 @@
 {
+    "window_title": "微信AI助手",
+    "window_size": [
+        800,
+        600
+    ],
     "api_key": "sk-teubpqfpiinyfwcehgqqvrphjosxuipmebakmewxtzmebyee",
     "listen_targets": [
         "文件传输助手"
