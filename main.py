@@ -28,12 +28,18 @@ class MessageMonitor(QThread):
         self.ai = ai_handler
         self.running = False
         self.message_cache = MessageCache()
+        self.last_ai_response = {}  # 记录每个用户最后一次AI的回复
         
     def check_and_process_messages(self):
         """检查并处理所有用户的缓存消息"""
         for sender in list(self.message_cache.user_messages.keys()):
             combined_message = self.message_cache.get_combined_messages(sender)
             if combined_message:
+                # 检查缓存的消息中是否包含上一次的AI回复
+                if sender in self.last_ai_response and self.last_ai_response[sender] in combined_message:
+                    self.status_updated.emit(f'跳过处理，因为消息中包含AI的上一次回复')
+                    continue
+                    
                 try:
                     self.status_updated.emit(f'开始处理来自 {sender} 的消息组合')
                     prompt = f"用户发送了以下多条消息：\n{combined_message}\n请统一回复这些消息。"
@@ -41,6 +47,7 @@ class MessageMonitor(QThread):
                     
                     ai_response = self.ai.process_message(prompt)
                     if ai_response:
+                        self.last_ai_response[sender] = ai_response  # 保存AI的回复
                         self.status_updated.emit(f'收到AI回复: {ai_response}')
                         if self.wechat.send_message(ai_response, sender):
                             self.status_updated.emit(f'已成功发送回复到 {sender}')
@@ -59,7 +66,6 @@ class MessageMonitor(QThread):
         self.running = True
         while self.running:
             try:
-                # 处理新消息
                 messages = self.wechat.get_new_messages()
                 for sender, msg_list in messages.items():
                     for msg in msg_list:
@@ -72,8 +78,15 @@ class MessageMonitor(QThread):
                             if not self.wechat.ui.is_auto_reply_enabled():
                                 continue
                             
-                            self.message_cache.add_message(sender, msg['content'])
-                            self.status_updated.emit(f'已缓存来自 {sender} 的消息: {msg["content"]}')
+                            # 检查消息内容是否是AI的上一次回复
+                            content = msg.get('content', '')
+                            if sender in self.last_ai_response and self.last_ai_response[sender] == content:
+                                self.status_updated.emit(f'跳过缓存AI回复内容: {content}')
+                                continue
+                            
+                            # 缓存消息
+                            self.message_cache.add_message(sender, content)
+                            self.status_updated.emit(f'已缓存来自 {sender} 的消息: {content}')
                 
                 # 定期检查是否有需要处理的消息
                 self.check_and_process_messages()
