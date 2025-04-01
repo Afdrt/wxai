@@ -26,6 +26,9 @@ class WeChatHandler:
         """获取并处理新消息"""
         messages_by_sender = {}
         try:
+            if not self.listen_targets:
+                return messages_by_sender
+                
             for target in self.listen_targets:
                 try:
                     new_messages = self.wx.GetListenMessage(target)
@@ -35,19 +38,21 @@ class WeChatHandler:
                             for msg in new_messages
                         ]
                 except Exception as e:
-                    self.ui.add_message('系统', {
-                        'type': '错误',
-                        'content': f"获取 {target} 的消息时出错: {str(e)}",
-                        'time': datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-                        'id': f'error_get_{target}'
-                    })
+                    if self.ui:
+                        self.ui.add_message('系统', {
+                            'type': '错误',
+                            'content': f"获取 {target} 的消息时出错: {str(e)}",
+                            'time': datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                            'id': f'error_get_{target}'
+                        })
         except Exception as e:
-            self.ui.add_message('系统', {
-                'type': '错误',
-                'content': f"获取消息时出错: {str(e)}",
-                'time': datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-                'id': 'error_get'
-            })
+            if self.ui:
+                self.ui.add_message('系统', {
+                    'type': '错误',
+                    'content': f"获取消息时出错: {str(e)}",
+                    'time': datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                    'id': 'error_get'
+                })
         return messages_by_sender  # 始终返回字典，即使是空的
 
     def _process_and_print_message(self, msg):

@@ -1,11 +1,16 @@
 import sys
 import time
 from PyQt5.QtWidgets import QApplication
-from PyQt5.QtCore import QThread, pyqtSignal
+from PyQt5.QtCore import QThread, pyqtSignal, Qt
+from PyQt5.QtGui import QTextCursor
 from src.config import WECHAT_CONFIG, AI_CONFIG, UI_CONFIG
 from src.wechat_handler import WeChatHandler
 from src.ai_handler import AIHandler
 from src.ui import ChatWindow
+
+# 注册 QTextCursor 类型
+from PyQt5.QtCore import QMetaType
+QMetaType.type("QTextCursor")
 
 class MessageMonitor(QThread):
     message_received = pyqtSignal(str, dict)
