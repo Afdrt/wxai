@@ -185,11 +185,23 @@ class ChatWindow(QMainWindow):
         if ok and target:
             self.target_list.addItem(target)
     
-    def remove_target(self):
+    def remove_target(self) -> None:
         """移除监听目标"""
-        current = self.target_list.currentItem()
-        if current:
-            self.target_list.takeItem(self.target_list.row(current))
+        current_item = self.target_list.currentItem()
+        if not current_item:
+            QMessageBox.warning(self, '警告', '请先选择要移除的监听目标')
+            return
+            
+        target = current_item.text()
+        # 从配置中移除
+        if target in self.config.get('listen_targets', []):
+            self.config['listen_targets'].remove(target)
+            # 保存配置
+            with open(self.config_file, 'w', encoding='utf-8') as f:
+                json.dump(self.config, f, indent=4, ensure_ascii=False)
+            # 从列表中移除
+            self.target_list.takeItem(self.target_list.row(current_item))
+            self.update_status(f'已移除监听目标: {target}')
     
     def get_config(self) -> Dict:
         """获取当前配置"""
@@ -241,6 +253,11 @@ class ChatWindow(QMainWindow):
     
     def set_running_state(self, is_running: bool) -> None:
         """设置运行状态"""
+        self.start_button.setEnabled(not is_running)  # 运行时禁用开始按钮
+        self.stop_button.setEnabled(True)  # 停止按钮始终可用
+        self.config_button.setEnabled(not is_running)  # 运行时禁用配置按钮
+        self.add_button.setEnabled(not is_running)  # 运行时禁用添加按钮
+        self.remove_button.setEnabled(not is_running)  # 运行时禁用移除按钮
     
     
     def show_config_dialog(self):

@@ -79,15 +79,32 @@ class WeChatHandler:
         print(f"消息时间: {msg_time}")
         print(f"消息ID: {msg_id}")
 
-    def cleanup(self) -> None:
-        """清理监听对象"""
-        if self.listen_targets:
-            for target in self.listen_targets:
-                try:
-                    self.wx.RemoveListenChat(target)
-                    print(f"已移除监听对象: {target}")
-                except Exception as e:
-                    print(f"移除监听对象 {target} 失败: {str(e)}")
+    def remove_listener(self, target: str) -> bool:
+        """移除监听目标"""
+        try:
+            # 先切换到目标聊天
+            self.wx.ChatWith(target)
+            time.sleep(0.5)  # 等待切换完成
+            # 移除监听
+            self.wx.RemoveListenChat(target)
+            if target in self.listen_targets:
+                self.listen_targets.remove(target)
+            return True
+        except Exception as e:
+            if self.ui:
+                self.ui.update_status(f'移除监听失败: {str(e)}')
+            return False
+    
+    def cleanup(self):
+        """清理所有监听"""
+        try:
+            # 移除所有监听目标
+            for target in list(self.listen_targets):
+                self.remove_listener(target)
+            self.listen_targets.clear()
+        except Exception as e:
+            if self.ui:
+                self.ui.update_status(f'清理监听失败: {str(e)}')
 
     def setup_listeners(self) -> List[str]:
         """设置监听对象并返回成功添加的监听对象列表"""

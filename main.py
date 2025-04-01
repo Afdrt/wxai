@@ -28,18 +28,14 @@ class MessageMonitor(QThread):
         self.ai = ai_handler
         self.running = False
         self.message_cache = MessageCache()
-        self.last_ai_response = {}  # 记录每个用户最后一次AI的回复
-        
+        self.last_ai_responses = {}  # 记录每个用户最近3次AI的回复
+        self.listen_targets = set()  # 添加监听目标集合
+
     def check_and_process_messages(self):
         """检查并处理所有用户的缓存消息"""
         for sender in list(self.message_cache.user_messages.keys()):
             combined_message = self.message_cache.get_combined_messages(sender)
             if combined_message:
-                # 检查缓存的消息中是否包含上一次的AI回复
-                if sender in self.last_ai_response and self.last_ai_response[sender] in combined_message:
-                    self.status_updated.emit(f'跳过处理，因为消息中包含AI的上一次回复')
-                    continue
-                    
                 try:
                     self.status_updated.emit(f'开始处理来自 {sender} 的消息组合')
                     prompt = f"用户发送了以下多条消息：\n{combined_message}\n请统一回复这些消息。"
@@ -47,7 +43,13 @@ class MessageMonitor(QThread):
                     
                     ai_response = self.ai.process_message(prompt)
                     if ai_response:
-                        self.last_ai_response[sender] = ai_response  # 保存AI的回复
+                        # 保存AI的回复到历史记录
+                        if sender not in self.last_ai_responses:
+                            self.last_ai_responses[sender] = []
+                        self.last_ai_responses[sender].append(ai_response)
+                        if len(self.last_ai_responses[sender]) > 3:
+                            self.last_ai_responses[sender].pop(0)  # 保持最近3条记录
+                            
                         self.status_updated.emit(f'收到AI回复: {ai_response}')
                         if self.wechat.send_message(ai_response, sender):
                             self.status_updated.emit(f'已成功发送回复到 {sender}')
@@ -68,6 +70,10 @@ class MessageMonitor(QThread):
             try:
                 messages = self.wechat.get_new_messages()
                 for sender, msg_list in messages.items():
+                    # 只处理在监听列表中的目标消息
+                    if self.listen_targets and sender not in self.listen_targets:
+                        continue
+                        
                     for msg in msg_list:
                         self.message_received.emit(sender, msg)
                         
@@ -78,9 +84,9 @@ class MessageMonitor(QThread):
                             if not self.wechat.ui.is_auto_reply_enabled():
                                 continue
                             
-                            # 检查消息内容是否是AI的上一次回复
+                            # 检查消息内容是否在最近3次AI回复中
                             content = msg.get('content', '')
-                            if sender in self.last_ai_response and self.last_ai_response[sender] == content:
+                            if sender in self.last_ai_responses and content in self.last_ai_responses[sender]:
                                 self.status_updated.emit(f'跳过缓存AI回复内容: {content}')
                                 continue
                             
@@ -135,17 +141,21 @@ class MainApp:
             nickname = self.wechat.initialize()
             self.window.update_status(f'已连接微信账号: {nickname}')
             
+            # 先创建监控实例
+            self.monitor = MessageMonitor(self.wechat, self.ai)
+            self.monitor.message_received.connect(self.window.add_message)
+            self.monitor.status_updated.connect(self.window.update_status)
+            
             # 设置监听
             success_targets = self.wechat.setup_listeners()
             if success_targets:
                 self.window.update_status(f'正在监听: {", ".join(success_targets)}')
+                # 更新监听目标
+                self.monitor.update_listen_targets(success_targets)
             else:
                 self.window.update_status('监听所有聊天对象')
             
             # 启动监控
-            self.monitor = MessageMonitor(self.wechat, self.ai)
-            self.monitor.message_received.connect(self.window.add_message)
-            self.monitor.status_updated.connect(self.window.update_status)
             self.monitor.start()
             
             # 更新UI状态
