@@ -82,4 +82,22 @@ class WeChatHandler:
                     print(f"已移除监听对象: {target}")
                 except Exception as e:
                     print(f"移除监听对象 {target} 失败: {str(e)}")
+
+    def setup_listeners(self) -> List[str]:
+        """设置监听对象并返回成功添加的监听对象列表"""
+        success_targets = []
+        if self.listen_targets:
+            for target in self.listen_targets:
+                try:
+                    self.wx.AddListenChat(target, savepic=True, savefile=True, savevoice=True)
+                    success_targets.append(target)
+                except Exception as e:
+                    if self.ui:
+                        self.ui.add_message('系统', {
+                            'type': '错误',
+                            'content': f"添加监听对象 {target} 失败: {str(e)}",
+                            'time': datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                            'id': f'error_add_listen_{target}'
+                        })
+        return success_targets
     
