@@ -1,56 +1,53 @@
-from wxauto import *
-import time
+from wxauto import WeChat
 import datetime
+import time
+from typing import Dict, List, Optional
 
 class WeChatHandler:
     def __init__(self, config: dict):
         self.wx = WeChat()
         self.listen_targets = config.get('listen_targets', [])
         self.start_time = time.time()
-        print(f"微信客户端初始化成功，当前登录账号：{self.wx.nickname}")
+        self.ui = None
+    
+    def set_ui(self, ui):
+        """设置UI引用"""
+        self.ui = ui
     
     def initialize(self) -> str:
         """初始化微信客户端并返回当前登录账号"""
-        return self.wx.nickname
+        try:
+            return self.wx.nickname  # 使用 nickname 属性获取当前登录账号名称
+        except Exception as e:
+            raise Exception(f"微信初始化失败: {str(e)}")
     
-    def setup_listeners(self) -> None:
-        """设置消息监听"""
-        if self.listen_targets:
-            print(f"已设置指定监听对象: {', '.join(self.listen_targets)}")
-            for target in self.listen_targets:
-                try:
-                    self.wx.AddListenChat(target, savepic=True, savefile=True, savevoice=True)
-                    print(f"成功添加监听对象: {target}")
-                except Exception as e:
-                    print(f"添加监听对象 {target} 失败: {str(e)}")
-        else:
-            print("当前监听所有聊天对象")
-        
-        print(f"开始监听新消息: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]}")
-        print("请在其他设备上向当前微信账号发送消息...")
-        print("-" * 50)
-
-    def get_new_messages(self) -> None:
+    def get_new_messages(self) -> Dict[str, List[Dict[str, str]]]:
         """获取并处理新消息"""
+        messages_by_sender = {}
         try:
             for target in self.listen_targets:
-                new_messages = self.wx.GetListenMessage(target)
-                
-                if new_messages:
-                    current_time = time.time()
-                    elapsed_time = current_time - self.start_time
-                    
-                    print(f"\n接收到来自 {target} 的新消息:")
-                    print(f"接收时间: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]}")
-                    print(f"监听延迟: {elapsed_time:.3f} 秒")
-                    
-                    for msg in new_messages:
-                        self._process_and_print_message(msg)
-                    print("-" * 50)
-                    self.start_time = current_time
-
+                try:
+                    new_messages = self.wx.GetListenMessage(target)
+                    if new_messages:
+                        messages_by_sender[target] = [
+                            self._process_message(msg)
+                            for msg in new_messages
+                        ]
+                except Exception as e:
+                    self.ui.add_message('系统', {
+                        'type': '错误',
+                        'content': f"获取 {target} 的消息时出错: {str(e)}",
+                        'time': datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                        'id': f'error_get_{target}'
+                    })
         except Exception as e:
-            print(f"获取消息时出错: {str(e)}")
+            self.ui.add_message('系统', {
+                'type': '错误',
+                'content': f"获取消息时出错: {str(e)}",
+                'time': datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                'id': 'error_get'
+            })
+        return messages_by_sender  # 始终返回字典，即使是空的
 
     def _process_and_print_message(self, msg):
         """处理并打印单条消息"""

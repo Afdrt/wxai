@@ -6,6 +6,53 @@ import json
 import os
 from typing import Dict, List, Optional, Callable
 
+class ConfigDialog(QDialog):
+    def __init__(self, config: dict, parent=None):
+        super().__init__(parent)
+        self.config = config
+        self.init_ui()
+    
+    def init_ui(self):
+        self.setWindowTitle('配置')
+        layout = QVBoxLayout(self)
+        
+        # AI配置
+        ai_group = QGroupBox('AI配置')
+        ai_layout = QFormLayout()
+        
+        self.api_key_input = QLineEdit()
+        self.api_key_input.setEchoMode(QLineEdit.Password)
+        self.api_key_input.setText(self.config.get('api_key', ''))
+        ai_layout.addRow('API Key:', self.api_key_input)
+        
+        self.api_base_input = QLineEdit()
+        self.api_base_input.setPlaceholderText('默认使用OpenAI官方地址')
+        self.api_base_input.setText(self.config.get('service', ''))
+        ai_layout.addRow('服务地址:', self.api_base_input)
+        
+        self.model_input = QLineEdit()
+        self.model_input.setPlaceholderText('请输入模型名称')
+        self.model_input.setText(self.config.get('model', ''))
+        ai_layout.addRow('模型名称:', self.model_input)
+        
+        ai_group.setLayout(ai_layout)
+        layout.addWidget(ai_group)
+        
+        # 按钮
+        buttons = QDialogButtonBox(
+            QDialogButtonBox.Ok | QDialogButtonBox.Cancel,
+            Qt.Horizontal, self)
+        buttons.accepted.connect(self.accept)
+        buttons.rejected.connect(self.reject)
+        layout.addWidget(buttons)
+    
+    def get_config(self) -> Dict:
+        return {
+            'api_key': self.api_key_input.text(),
+            'service': self.api_base_input.text().strip(),
+            'model': self.model_input.text().strip()
+        }
+
 class ChatWindow(QMainWindow):
     def __init__(self, config: dict):
         super().__init__()
@@ -13,77 +60,81 @@ class ChatWindow(QMainWindow):
         self.config_file = os.path.join(os.path.dirname(__file__), '..', 'config.json')
         self.load_config()
         self.init_ui()
-        
+    
     def init_ui(self) -> None:
         """初始化UI界面"""
-        # 设置窗口属性
         self.setWindowTitle(self.config.get('window_title', '微信AI助手'))
         self.resize(*self.config.get('window_size', (800, 600)))
-        
-
         
         # 创建中心部件和布局
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
-        layout = QVBoxLayout(central_widget)
+        main_layout = QVBoxLayout(central_widget)
         
-        # 创建状态显示区域
-        self.status_label = QLabel('未连接')
-        layout.addWidget(self.status_label)
+        # 创建水平分割的布局
+        content_layout = QHBoxLayout()
         
-        # 创建消息显示区域
+        # 左侧面板 - 监听列表
+        left_panel = QGroupBox('监听列表')
+        left_layout = QVBoxLayout()
+        
+        # 监听目标列表
+        self.target_list = QListWidget()
+        left_layout.addWidget(self.target_list)
+        
+        # 监听列表按钮
+        button_layout = QHBoxLayout()
+        self.add_button = QPushButton('添加')
+        self.remove_button = QPushButton('移除')
+        button_layout.addWidget(self.add_button)
+        button_layout.addWidget(self.remove_button)
+        left_layout.addLayout(button_layout)
+        
+        left_panel.setLayout(left_layout)
+        
+        # 右侧面板 - 日志显示
+        right_panel = QGroupBox('日志')
+        right_layout = QVBoxLayout()
+        
         self.message_display = QTextEdit()
         self.message_display.setReadOnly(True)
-        layout.addWidget(self.message_display)
+        right_layout.addWidget(self.message_display)
         
-        # 创建配置区域
-        config_group = QGroupBox('配置')
-        config_layout = QFormLayout()
+        right_panel.setLayout(right_layout)
         
-        # AI配置
-        self.api_key_input = QLineEdit()
-        self.api_key_input.setEchoMode(QLineEdit.Password)
-        config_layout.addRow('API Key:', self.api_key_input)
+        # 添加左右面板到水平布局
+        content_layout.addWidget(left_panel, 1)
+        content_layout.addWidget(right_panel, 2)
         
-        self.api_base_input = QLineEdit()
-        self.api_base_input.setPlaceholderText('默认使用OpenAI官方地址')
-        config_layout.addRow('服务地址:', self.api_base_input)
+        # 添加水平布局到主布局
+        main_layout.addLayout(content_layout)
         
-        self.model_input = QLineEdit()
-        self.model_input.setPlaceholderText('请输入模型名称')
-        config_layout.addRow('模型名称:', self.model_input)
+        # 底部控制面板
+        control_panel = QHBoxLayout()
         
-        # 监听目标配置
-        self.target_input = QLineEdit()
-        config_layout.addRow('监听目标:', self.target_input)
-        
-        config_group.setLayout(config_layout)
-        layout.addWidget(config_group)
-        
-        # 设置默认配置值
-        self.api_key_input.setText(self.config.get('api_key', ''))
-        self.api_base_input.setText(self.config.get('service', ''))
-        self.model_input.setText(self.config.get('model', ''))
-        self.target_input.setText(', '.join(self.config.get('listen_targets', [])))
-        
-        # 创建控制按钮
-        button_layout = QHBoxLayout()
-        
+        # 控制按钮
         self.start_button = QPushButton('开始监听')
         self.stop_button = QPushButton('停止监听')
+        self.config_button = QPushButton('配置')
         self.stop_button.setEnabled(False)
         
-        button_layout.addWidget(self.start_button)
-        button_layout.addWidget(self.stop_button)
-        layout.addLayout(button_layout)
+        control_panel.addWidget(self.start_button)
+        control_panel.addWidget(self.stop_button)
+        control_panel.addWidget(self.config_button)
         
-        # 设置状态栏
-        self.statusBar().showMessage('就绪')
+        main_layout.addLayout(control_panel)
+        
+        # 连接信号
+        self.add_button.clicked.connect(self.add_target)
+        self.remove_button.clicked.connect(self.remove_target)
+        self.config_button.clicked.connect(self.show_config_dialog)
+        
+        # 加载已有监听目标
+        self.load_targets()
     
     def update_status(self, status: str) -> None:
         """更新状态显示"""
-        self.status_label.setText(status)
-        self.statusBar().showMessage(status)
+        self.message_display.append(f"[系统] {status}")
     
     def add_message(self, sender: str, message: Dict[str, str]) -> None:
         """添加新消息到显示区域"""
@@ -103,18 +154,33 @@ class ChatWindow(QMainWindow):
         """设置停止按钮的处理函数"""
         self.stop_button.clicked.connect(handler)
     
+    def add_target(self):
+        """添加监听目标"""
+        target, ok = QInputDialog.getText(self, '添加监听目标', '请输入监听目标名称:')
+        if ok and target:
+            self.target_list.addItem(target)
+    
+    def remove_target(self):
+        """移除监听目标"""
+        current = self.target_list.currentItem()
+        if current:
+            self.target_list.takeItem(self.target_list.row(current))
+    
     def get_config(self) -> Dict:
         """获取当前配置"""
-        config = {
-            'api_key': self.api_key_input.text(),
-            'listen_targets': [t.strip() for t in self.target_input.text().split(',') if t.strip()],
-            'service': self.api_base_input.text().strip() or self.config.get('service', ''),
-            'model': self.model_input.text().strip() or self.config.get('model', '')
-        }
-        
-        self.save_config(config)
+        config = self.config.copy()
+        config['listen_targets'] = [
+            self.target_list.item(i).text()
+            for i in range(self.target_list.count())
+        ]
         return config
-        
+    
+    def load_targets(self):
+        """加载监听目标"""
+        targets = self.config.get('listen_targets', [])
+        self.target_list.clear()
+        self.target_list.addItems(targets)
+    
     def load_config(self) -> None:
         """从配置文件加载配置"""
         try:
@@ -140,3 +206,10 @@ class ChatWindow(QMainWindow):
         self.api_key_input.setEnabled(not is_running)
         self.target_input.setEnabled(not is_running)
         self.model_input.setEnabled(not is_running)
+    
+    def show_config_dialog(self):
+        """显示配置对话框"""
+        dialog = ConfigDialog(self.config, self)
+        if dialog.exec_() == QDialog.Accepted:
+            self.config.update(dialog.get_config())
+            self.save_config(self.config)

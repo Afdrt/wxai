@@ -76,6 +76,7 @@ class MainApp:
             
             # 初始化处理器
             self.wechat = WeChatHandler(WECHAT_CONFIG)
+            self.wechat.set_ui(self.window)  # 添加这行，设置UI引用
             self.ai = AIHandler(AI_CONFIG)
             
             # 初始化微信

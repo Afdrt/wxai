@@ -31,7 +31,7 @@ class WeChatTestApp:
         main_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
         
         # 创建左侧功能区
-        left_frame = ttk.Frame(main_frame, width=300)
+        left_frame = ttk.Frame(main_frame, width=900)
         left_frame.pack(side=tk.LEFT, fill=tk.Y, padx=5, pady=5)
         
         # 创建右侧输出区
