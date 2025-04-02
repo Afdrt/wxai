@@ -134,7 +134,11 @@ class MainApp:
                 'model': config['model'],
                 'system_prompt': config['ai_behavior']['system_prompt'],
                 'temperature': config['ai_behavior']['temperature'],
-                'max_tokens': config['ai_behavior']['max_tokens']
+                'max_tokens': config['ai_behavior']['max_tokens'],
+                # 添加缺失的配置项
+                'presence_penalty': config['ai_behavior']['presence_penalty'],
+                'frequency_penalty': config['ai_behavior']['frequency_penalty'],
+                'top_p': config['ai_behavior']['top_p']
             })
             
             if config['listen_targets']:

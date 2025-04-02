@@ -50,7 +50,10 @@ class AIHandler:
                 model=self.config.get('model'),
                 messages=messages,
                 temperature=self.config.get('temperature', 0.7),
-                max_tokens=self.config.get('max_tokens', 1000)
+                max_tokens=self.config.get('max_tokens', 800),
+                presence_penalty=self.config.get('presence_penalty', 0.9),
+                frequency_penalty=self.config.get('frequency_penalty', 0.0),
+                top_p=self.config.get('top_p', 0.0)
             )
             
             reply = response.choices[0].message.content

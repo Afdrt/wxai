@@ -44,17 +44,42 @@ class ConfigDialog(QDialog):
         self.system_prompt_input.setMaximumHeight(100)
         ai_layout.addRow('系统提示词:', self.system_prompt_input)
         
+        # AI参数调整
+        params_group = QGroupBox('模型参数调整')
+        params_layout = QFormLayout()
+        
         self.temperature_input = QDoubleSpinBox()
-        self.temperature_input.setRange(0.0, 2.0)
-        self.temperature_input.setSingleStep(0.1)
+        self.temperature_input.setRange(0.0, 1.0)
+        self.temperature_input.setSingleStep(0.01)
         self.temperature_input.setValue(self.config.get('ai_behavior', {}).get('temperature', 0.7))
-        ai_layout.addRow('温度系数:', self.temperature_input)
+        params_layout.addRow('创造性 (0-1):', self.temperature_input)
         
         self.max_tokens_input = QSpinBox()
-        self.max_tokens_input.setRange(100, 4000)
+        self.max_tokens_input.setRange(0, 2000)
         self.max_tokens_input.setSingleStep(100)
-        self.max_tokens_input.setValue(self.config.get('ai_behavior', {}).get('max_tokens', 1000))
-        ai_layout.addRow('最大字数:', self.max_tokens_input)
+        self.max_tokens_input.setValue(self.config.get('ai_behavior', {}).get('max_tokens', 800))
+        params_layout.addRow('最大长度 (0-2000):', self.max_tokens_input)
+        
+        self.presence_penalty_input = QDoubleSpinBox()
+        self.presence_penalty_input.setRange(0.0, 1.0)
+        self.presence_penalty_input.setSingleStep(0.01)
+        self.presence_penalty_input.setValue(self.config.get('ai_behavior', {}).get('presence_penalty', 0.9))
+        params_layout.addRow('多样性 (0-1):', self.presence_penalty_input)
+        
+        self.frequency_penalty_input = QDoubleSpinBox()
+        self.frequency_penalty_input.setRange(0.0, 1.0)
+        self.frequency_penalty_input.setSingleStep(0.01)
+        self.frequency_penalty_input.setValue(self.config.get('ai_behavior', {}).get('frequency_penalty', 0.0))
+        params_layout.addRow('重复惩罚 (0-1):', self.frequency_penalty_input)
+        
+        self.top_p_input = QDoubleSpinBox()
+        self.top_p_input.setRange(0.0, 1.0)
+        self.top_p_input.setSingleStep(0.01)
+        self.top_p_input.setValue(self.config.get('ai_behavior', {}).get('top_p', 0.0))
+        params_layout.addRow('话题新鲜度 (0-1):', self.top_p_input)
+        
+        params_group.setLayout(params_layout)
+        layout.addWidget(params_group)
         
         ai_group.setLayout(ai_layout)
         layout.addWidget(ai_group)
@@ -77,7 +102,10 @@ class ConfigDialog(QDialog):
             'ai_behavior': {
                 'system_prompt': self.system_prompt_input.toPlainText().strip(),
                 'temperature': self.temperature_input.value(),
-                'max_tokens': self.max_tokens_input.value()
+                'max_tokens': self.max_tokens_input.value(),
+                'presence_penalty': self.presence_penalty_input.value(),
+                'frequency_penalty': self.frequency_penalty_input.value(),
+                'top_p': self.top_p_input.value()
             }
         }
 
