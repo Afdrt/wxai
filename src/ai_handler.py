@@ -28,7 +28,8 @@ class AIHandler:
             messages = [
                 {
                     "role": "system",
-                    "content": "你是一个友好的AI助手，请用简洁自然的方式回复用户的问题。"
+                    "content": self.config.get('system_prompt', 
+                        "你是一个友好的AI助手，请用简洁自然的方式回复用户的问题。")
                 }
             ]
             if context:

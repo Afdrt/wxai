@@ -26,7 +26,9 @@ AI_CONFIG = {
     'api_key': config.get('api_key', ''),
     'service': config.get('service', 'https://api.siliconflow.cn/v1'),
     'model': config.get('model', 'deepseek-ai/DeepSeek-R1-Distill-Qwen-7B'),
-    'temperature': config.get('temperature', 0.7),
-    'max_tokens': config.get('max_tokens', 1000),
+    'temperature': config.get('ai_behavior', {}).get('temperature', 0.7),
+    'max_tokens': config.get('ai_behavior', {}).get('max_tokens', 1000),
+    'system_prompt': config.get('ai_behavior', {}).get('system_prompt', 
+        "你是一个友好的AI助手，请用简洁自然的方式回复用户的问题。"),
     'timeout': config.get('timeout', 30)
 }

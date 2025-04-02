@@ -13,25 +13,6 @@ class ConfigDialog(QDialog):
         self.config_file = os.path.join(os.path.dirname(__file__), '..', 'config.json')
         self.init_ui()
     
-    def accept(self):
-        """当用户点击确定时保存配置"""
-        try:
-            # 获取UI中的值
-            new_config = {
-                'api_key': self.api_key_input.text(),
-                'service': self.api_base_input.text().strip(),
-                'model': self.model_input.text().strip(),
-                'listen_targets': self.config.get('listen_targets', [])  # 保持原有的监听目标
-            }
-            
-            # 保存到文件
-            with open(self.config_file, 'w', encoding='utf-8') as f:
-                json.dump(new_config, f, indent=4, ensure_ascii=False)
-            
-            super().accept()
-        except Exception as e:
-            QMessageBox.critical(self, '错误', f'保存配置失败: {str(e)}')
-    
     def init_ui(self):
         self.setWindowTitle('配置')
         layout = QVBoxLayout(self)
@@ -55,6 +36,26 @@ class ConfigDialog(QDialog):
         self.model_input.setText(self.config.get('model', ''))
         ai_layout.addRow('模型名称:', self.model_input)
         
+        # AI行为配置
+        self.system_prompt_input = QTextEdit()
+        self.system_prompt_input.setPlaceholderText('设置AI助手的行为和角色')
+        self.system_prompt_input.setText(self.config.get('ai_behavior', {}).get('system_prompt', 
+            "你是一个友好的AI助手，请用简洁自然的方式回复用户的问题。"))
+        self.system_prompt_input.setMaximumHeight(100)
+        ai_layout.addRow('系统提示词:', self.system_prompt_input)
+        
+        self.temperature_input = QDoubleSpinBox()
+        self.temperature_input.setRange(0.0, 2.0)
+        self.temperature_input.setSingleStep(0.1)
+        self.temperature_input.setValue(self.config.get('ai_behavior', {}).get('temperature', 0.7))
+        ai_layout.addRow('温度系数:', self.temperature_input)
+        
+        self.max_tokens_input = QSpinBox()
+        self.max_tokens_input.setRange(100, 4000)
+        self.max_tokens_input.setSingleStep(100)
+        self.max_tokens_input.setValue(self.config.get('ai_behavior', {}).get('max_tokens', 1000))
+        ai_layout.addRow('最大字数:', self.max_tokens_input)
+        
         ai_group.setLayout(ai_layout)
         layout.addWidget(ai_group)
         
@@ -67,11 +68,42 @@ class ConfigDialog(QDialog):
         layout.addWidget(buttons)
     
     def get_config(self) -> Dict:
+        """获取当前配置"""
         return {
             'api_key': self.api_key_input.text(),
             'service': self.api_base_input.text().strip(),
-            'model': self.model_input.text().strip()
+            'model': self.model_input.text().strip(),
+            'listen_targets': self.config.get('listen_targets', []),
+            'ai_behavior': {
+                'system_prompt': self.system_prompt_input.toPlainText().strip(),
+                'temperature': self.temperature_input.value(),
+                'max_tokens': self.max_tokens_input.value()
+            }
         }
+
+    def accept(self):
+        """当用户点击确定时保存配置"""
+        try:
+            # 获取UI中的值
+            new_config = {
+                'api_key': self.api_key_input.text(),
+                'service': self.api_base_input.text().strip(),
+                'model': self.model_input.text().strip(),
+                'listen_targets': self.config.get('listen_targets', []),
+                'ai_behavior': {
+                    'system_prompt': self.system_prompt_input.toPlainText().strip(),
+                    'temperature': self.temperature_input.value(),
+                    'max_tokens': self.max_tokens_input.value()
+                }
+            }
+            
+            # 保存到文件
+            with open(self.config_file, 'w', encoding='utf-8') as f:
+                json.dump(new_config, f, indent=4, ensure_ascii=False)
+            
+            super().accept()
+        except Exception as e:
+            QMessageBox.critical(self, '错误', f'保存配置失败: {str(e)}')
 
 class ChatWindow(QMainWindow):
     def __init__(self, config: dict):

@@ -128,7 +128,15 @@ class MainApp:
                 return
             
             # 更新配置
-            AI_CONFIG['api_key'] = config['api_key']
+            AI_CONFIG.update({
+                'api_key': config['api_key'],
+                'service': config['service'],
+                'model': config['model'],
+                'system_prompt': config['ai_behavior']['system_prompt'],
+                'temperature': config['ai_behavior']['temperature'],
+                'max_tokens': config['ai_behavior']['max_tokens']
+            })
+            
             if config['listen_targets']:
                 WECHAT_CONFIG['listen_targets'] = config['listen_targets']
             
