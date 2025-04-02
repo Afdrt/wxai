@@ -184,7 +184,9 @@ class ChatWindow(QMainWindow):
         target, ok = QInputDialog.getText(self, '添加监听目标', '请输入监听目标名称:')
         if ok and target:
             self.target_list.addItem(target)
-    
+            # 添加后保存配置
+            self.save_targets_config()
+
     def remove_target(self) -> None:
         """移除监听目标"""
         current_item = self.target_list.currentItem()
@@ -193,15 +195,30 @@ class ChatWindow(QMainWindow):
             return
             
         target = current_item.text()
-        # 从配置中移除
-        if target in self.config.get('listen_targets', []):
-            self.config['listen_targets'].remove(target)
+        # 从列表中移除
+        self.target_list.takeItem(self.target_list.row(current_item))
+        # 保存更新后的配置
+        self.save_targets_config()
+        self.update_status(f'已移除监听目标: {target}')
+
+    def save_targets_config(self):
+        """保存监听目标到配置文件"""
+        try:
+            # 读取现有配置
+            with open(self.config_file, 'r', encoding='utf-8') as f:
+                config = json.load(f)
+            
+            # 更新监听目标
+            config['listen_targets'] = [
+                self.target_list.item(i).text()
+                for i in range(self.target_list.count())
+            ]
+            
             # 保存配置
             with open(self.config_file, 'w', encoding='utf-8') as f:
-                json.dump(self.config, f, indent=4, ensure_ascii=False)
-            # 从列表中移除
-            self.target_list.takeItem(self.target_list.row(current_item))
-            self.update_status(f'已移除监听目标: {target}')
+                json.dump(config, f, indent=4, ensure_ascii=False)
+        except Exception as e:
+            print(f"保存监听目标配置失败: {str(e)}")
     
     def get_config(self) -> Dict:
         """获取当前配置"""
