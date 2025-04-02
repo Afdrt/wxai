@@ -24,7 +24,7 @@ class AIHandler:
     def process_message(self, message: str, context: List[Dict] = None) -> Optional[str]:
         """处理消息并获取AI响应"""
         try:
-            self.logger.info(f'开始处理消息: {message}')
+            self.logger.info(f'开始处理消息: {message[:100]}{"..." if len(message) > 100 else ""}')
             messages = [
                 {
                     "role": "system",
@@ -33,7 +33,7 @@ class AIHandler:
                 }
             ]
             if context:
-                self.logger.debug(f'使用上下文: {context}')
+                self.logger.debug(f'使用上下文: {len(context)} 条消息')
                 messages.extend(context)
             messages.append({
                 'role': 'user',
@@ -98,11 +98,12 @@ class AIHandler:
             ConfigurationError: 更新配置过程中发生错误
         """
         try:
+            self.logger.info('更新AI配置')
             self.config.update(new_config)
             self.service = self.config.get('service', 'openai')
             self.setup_service()
             self.logger.info('成功更新AI配置')
         except Exception as e:
             error_msg = f'更新配置失败: {str(e)}'
-            self.logger.error(error_msg)
+            self.logger.error(error_msg, exc_info=True)
             raise ConfigurationError(error_msg)

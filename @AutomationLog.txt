@@ -1,21 +1,53 @@
-2025-04-01 00:12:31.683 wxauto.py[574] AddListenChat -> Can not move cursor. ListItemControl's BoundingRectangle is (0,0,0,0)[0x0]. SearchProperties: {RegexName: '文件传输助手', ControlType: ListItemControl}
-2025-04-01 00:34:11.739 wxauto.py[316] ChatWith -> Can not move cursor. ListItemControl's BoundingRectangle is (0,0,0,0)[0x0]. SearchProperties: {RegexName: '文件传输助手', ControlType: ListItemControl}
-2025-04-01 00:34:11.788 wxauto.py[574] AddListenChat -> Can not move cursor. ListItemControl's BoundingRectangle is (0,0,0,0)[0x0]. SearchProperties: {RegexName: '文件传输助手', ControlType: ListItemControl}
-2025-04-01 11:25:00.457 wxauto.py[316] ChatWith -> Can not move cursor. ListItemControl's BoundingRectangle is (0,0,0,0)[0x0]. SearchProperties: {RegexName: '文件传输助手', ControlType: ListItemControl}
-2025-04-01 11:25:00.524 wxauto.py[574] AddListenChat -> Can not move cursor. ListItemControl's BoundingRectangle is (0,0,0,0)[0x0]. SearchProperties: {RegexName: '文件传输助手', ControlType: ListItemControl}
-2025-04-01 11:52:24.283 wxauto.py[574] AddListenChat -> Can not move cursor. ListItemControl's BoundingRectangle is (0,0,0,0)[0x0]. SearchProperties: {RegexName: '文件传输助手', ControlType: ListItemControl}
-2025-04-01 14:05:25.061 wxauto.py[316] ChatWith -> Can not move cursor. ListItemControl's BoundingRectangle is (0,0,0,0)[0x0]. SearchProperties: {RegexName: '文件传输助手', ControlType: ListItemControl}
-2025-04-01 14:05:25.081 wxauto.py[574] AddListenChat -> Can not move cursor. ListItemControl's BoundingRectangle is (0,0,0,0)[0x0]. SearchProperties: {RegexName: '文件传输助手', ControlType: ListItemControl}
-2025-04-01 14:19:06.916 wxauto.py[316] ChatWith -> Can not move cursor. ListItemControl's BoundingRectangle is (0,0,0,0)[0x0]. SearchProperties: {RegexName: '微信支付', ControlType: ListItemControl}
-2025-04-01 14:19:07.008 wxauto.py[574] AddListenChat -> Can not move cursor. ListItemControl's BoundingRectangle is (0,0,0,0)[0x0]. SearchProperties: {RegexName: '微信支付', ControlType: ListItemControl}
-2025-04-01 16:08:39.423 wxauto.py[316] ChatWith -> Can not move cursor. ListItemControl's BoundingRectangle is (0,0,0,0)[0x0]. SearchProperties: {RegexName: '文件传输助手', ControlType: ListItemControl}
-2025-04-01 16:08:39.452 wxauto.py[574] AddListenChat -> Can not move cursor. ListItemControl's BoundingRectangle is (0,0,0,0)[0x0]. SearchProperties: {RegexName: '文件传输助手', ControlType: ListItemControl}
-2025-04-01 16:51:39.307 wxauto.py[574] AddListenChat -> Can not move cursor. ListItemControl's BoundingRectangle is (0,0,0,0)[0x0]. SearchProperties: {RegexName: '文件传输助手', ControlType: ListItemControl}
-2025-04-01 21:33:33.763 wxauto.py[574] AddListenChat -> Can not move cursor. ListItemControl's BoundingRectangle is (0,0,0,0)[0x0]. SearchProperties: {RegexName: '文件传输助手', ControlType: ListItemControl}
-2025-04-01 21:34:17.264 wxauto.py[316] ChatWith -> Can not move cursor. ListItemControl's BoundingRectangle is (0,0,0,0)[0x0]. SearchProperties: {RegexName: '文件传输助手', ControlType: ListItemControl}
-2025-04-01 21:34:17.319 wxauto.py[574] AddListenChat -> Can not move cursor. ListItemControl's BoundingRectangle is (0,0,0,0)[0x0]. SearchProperties: {RegexName: '文件传输助手', ControlType: ListItemControl}
-2025-04-01 21:37:33.306 wxauto.py[574] AddListenChat -> Can not move cursor. ListItemControl's BoundingRectangle is (0,0,0,0)[0x0]. SearchProperties: {RegexName: '文件传输助手', ControlType: ListItemControl}
-2025-04-01 21:49:30.354 wxauto.py[316] ChatWith -> Can not move cursor. ListItemControl's BoundingRectangle is (0,0,0,0)[0x0]. SearchProperties: {RegexName: '文件传输助手', ControlType: ListItemControl}
-2025-04-01 21:49:30.406 wxauto.py[574] AddListenChat -> Can not move cursor. ListItemControl's BoundingRectangle is (0,0,0,0)[0x0]. SearchProperties: {RegexName: '文件传输助手', ControlType: ListItemControl}
-2025-04-01 21:49:37.961 wxauto.py[316] ChatWith -> Can not move cursor. ListItemControl's BoundingRectangle is (0,0,0,0)[0x0]. SearchProperties: {RegexName: '文件传输助手', ControlType: ListItemControl}
-2025-04-01 21:49:37.985 wxauto.py[574] AddListenChat -> Can not move cursor. ListItemControl's BoundingRectangle is (0,0,0,0)[0x0]. SearchProperties: {RegexName: '文件传输助手', ControlType: ListItemControl}
+2025-04-04 21:15:36 [INFO] root - === 微信AI助手启动 ===
+2025-04-04 21:15:36 [INFO] __main__ - 初始化主应用程序
+2025-04-04 21:15:36 [INFO] __main__ - 设置UI事件处理器完成
+2025-04-04 21:15:36 [INFO] __main__ - 显示主窗口
+2025-04-04 21:15:37 [INFO] __main__ - 进入应用程序主循环
+2025-04-04 21:15:39 [INFO] __main__ - 开始启动监控
+2025-04-04 21:15:39 [INFO] __main__ - 初始化微信处理器
+2025-04-04 21:15:40 [INFO] src.wechat_handler - 微信处理器初始化完成
+2025-04-04 21:15:40 [INFO] __main__ - 初始化AI处理器
+2025-04-04 21:15:40 [INFO] src.ai_handler - 开始配置AI服务...
+2025-04-04 21:15:40 [INFO] src.ai_handler - 使用自定义服务地址: https://api.siliconflow.cn/v1
+2025-04-04 21:15:40 [INFO] src.ai_handler - AI服务配置完成
+2025-04-04 21:15:40 [INFO] __main__ - 连接微信客户端
+2025-04-04 21:15:40 [INFO] src.wechat_handler - 微信初始化成功，当前账号: 上下左右
+2025-04-04 21:15:40 [INFO] __main__ - 已连接微信账号: 上下左右
+2025-04-04 21:15:40 [INFO] __main__ - 创建消息监控器
+2025-04-04 21:15:40 [INFO] __main__ - 消息监控器初始化完成
+2025-04-04 21:15:40 [INFO] __main__ - 设置微信监听
+2025-04-04 21:15:40 [INFO] src.wechat_handler - 开始设置 1 个监听目标
+2025-04-04 21:15:40 [INFO] src.wechat_handler - 尝试添加监听目标: 文件传输助手
+2025-04-04 21:15:45 [INFO] src.wechat_handler - 监听设置完成，成功添加 0 个目标
+2025-04-04 21:15:45 [INFO] __main__ - 未设置特定监听目标，监听所有聊天
+2025-04-04 21:15:45 [INFO] __main__ - 启动消息监控线程
+2025-04-04 21:15:45 [INFO] __main__ - 监控已成功启动
+2025-04-04 21:15:45 [INFO] __main__ - 消息监控线程启动
+2025-04-04 21:15:45 [INFO] src.wechat_handler - 成功添加监听目标: 文件传输助手
+2025-04-04 21:15:51 [INFO] src.wechat_handler - 从 文件传输助手 获取到 1 条新消息
+2025-04-04 21:15:51 [INFO] __main__ - 收到来自 文件传输助手 的消息: 你好你好
+2025-04-04 21:15:51 [INFO] __main__ - 已缓存来自 文件传输助手 的消息: 你好你好
+2025-04-04 21:15:52 [INFO] src.wechat_handler - 从 文件传输助手 获取到 1 条新消息
+2025-04-04 21:15:52 [INFO] __main__ - 收到来自 文件传输助手 的消息: 我喜欢你
+2025-04-04 21:15:52 [INFO] __main__ - 已缓存来自 文件传输助手 的消息: 我喜欢你
+2025-04-04 21:15:55 [INFO] __main__ - 开始处理来自 文件传输助手 的消息组合
+2025-04-04 21:15:55 [INFO] src.ai_handler - 开始处理消息: 用户发送了以下多条消息：
+用户: 你好你好
+用户: 我喜欢你
+请统一回复这些消息。
+2025-04-04 21:15:55 [INFO] src.ai_handler - 使用模型 deepseek-ai/DeepSeek-R1-Distill-Qwen-7B 发送请求
+2025-04-04 21:15:58 [INFO] httpx - HTTP Request: POST https://api.siliconflow.cn/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-04 21:15:58 [INFO] src.ai_handler - 收到AI响应: 你好！很高兴见到你！  
+我也是！
+2025-04-04 21:15:58 [INFO] __main__ - 收到AI回复: 你好！很高兴见到你！  
+我也是！
+2025-04-04 21:15:58 [INFO] src.wechat_handler - 尝试发送消息到 文件传输助手: 你好！很高兴见到你！  
+我也是！
+2025-04-04 21:16:00 [INFO] src.wechat_handler - 成功发送消息到 文件传输助手
+2025-04-04 21:16:00 [INFO] __main__ - 已成功发送回复到 文件传输助手
+2025-04-04 21:16:00 [INFO] src.wechat_handler - 从 文件传输助手 获取到 1 条新消息
+2025-04-04 21:16:00 [INFO] __main__ - 收到来自 文件传输助手 的消息: 你好！很高兴见到你！  
+我也是！
+2025-04-04 21:16:00 [INFO] __main__ - 跳过缓存AI回复内容: 你好！很高兴见到你！  
+我也是！
+2025-04-04 21:16:07 [INFO] root - === 微信AI助手退出，退出码: 0 ===
