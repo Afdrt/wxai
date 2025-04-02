@@ -17,8 +17,15 @@ class ConfigDialog(QDialog):
         self.setWindowTitle('配置')
         layout = QVBoxLayout(self)
         
-        # AI配置
-        ai_group = QGroupBox('AI配置')
+        # 创建选项卡界面
+        tab_widget = QTabWidget()
+        
+        # 基础配置选项卡
+        basic_tab = QWidget()
+        basic_layout = QVBoxLayout(basic_tab)
+        
+        # AI基础配置
+        ai_group = QGroupBox('API配置')
         ai_layout = QFormLayout()
         
         self.api_key_input = QLineEdit()
@@ -36,53 +43,140 @@ class ConfigDialog(QDialog):
         self.model_input.setText(self.config.get('model', ''))
         ai_layout.addRow('模型名称:', self.model_input)
         
+        ai_group.setLayout(ai_layout)
+        basic_layout.addWidget(ai_group)
+        
         # AI行为配置
+        behavior_group = QGroupBox('AI行为配置')
+        behavior_layout = QVBoxLayout()
+        
+        prompt_label = QLabel('系统提示词:')
         self.system_prompt_input = QTextEdit()
         self.system_prompt_input.setPlaceholderText('设置AI助手的行为和角色')
         self.system_prompt_input.setText(self.config.get('ai_behavior', {}).get('system_prompt', 
             "你是一个友好的AI助手，请用简洁自然的方式回复用户的问题。"))
-        self.system_prompt_input.setMaximumHeight(100)
-        ai_layout.addRow('系统提示词:', self.system_prompt_input)
+        self.system_prompt_input.setMinimumHeight(100)
+        
+        behavior_layout.addWidget(prompt_label)
+        behavior_layout.addWidget(self.system_prompt_input)
+        behavior_group.setLayout(behavior_layout)
+        basic_layout.addWidget(behavior_group)
+        
+        # 添加基础配置选项卡
+        tab_widget.addTab(basic_tab, "基础配置")
+        
+        # 高级参数选项卡
+        advanced_tab = QWidget()
+        advanced_layout = QVBoxLayout(advanced_tab)
+        
+        # 参数说明
+        params_info = QGroupBox('参数说明')
+        params_info_layout = QVBoxLayout()
+        info_text = QLabel(
+            "• 创造性: 值越高，回复越有创意但可能偏离主题\n"
+            "• 最大长度: 控制AI回复的最大字符数\n"
+            "• 多样性: 值越高，回复越多样化\n"
+            "• 重复惩罚: 值越高，AI越不会重复之前说过的内容\n"
+            "• 话题新鲜度: 值越高，AI越倾向于引入新话题"
+        )
+        info_text.setWordWrap(True)
+        params_info_layout.addWidget(info_text)
+        params_info.setLayout(params_info_layout)
+        advanced_layout.addWidget(params_info)
         
         # AI参数调整
         params_group = QGroupBox('模型参数调整')
-        params_layout = QFormLayout()
+        params_layout = QGridLayout()
         
+        # 创造性
+        temp_label = QLabel('创造性 (0-1):')
         self.temperature_input = QDoubleSpinBox()
         self.temperature_input.setRange(0.0, 1.0)
         self.temperature_input.setSingleStep(0.01)
         self.temperature_input.setValue(self.config.get('ai_behavior', {}).get('temperature', 0.7))
-        params_layout.addRow('创造性 (0-1):', self.temperature_input)
+        self.temperature_slider = QSlider(Qt.Horizontal)
+        self.temperature_slider.setRange(0, 100)
+        self.temperature_slider.setValue(int(self.temperature_input.value() * 100))
+        self.temperature_slider.valueChanged.connect(lambda v: self.temperature_input.setValue(v/100))
+        self.temperature_input.valueChanged.connect(lambda v: self.temperature_slider.setValue(int(v*100)))
         
+        # 最大长度
+        max_tokens_label = QLabel('最大长度 (0-2000):')
         self.max_tokens_input = QSpinBox()
         self.max_tokens_input.setRange(0, 2000)
         self.max_tokens_input.setSingleStep(100)
         self.max_tokens_input.setValue(self.config.get('ai_behavior', {}).get('max_tokens', 800))
-        params_layout.addRow('最大长度 (0-2000):', self.max_tokens_input)
+        self.max_tokens_slider = QSlider(Qt.Horizontal)
+        self.max_tokens_slider.setRange(0, 2000)
+        self.max_tokens_slider.setValue(self.max_tokens_input.value())
+        self.max_tokens_slider.valueChanged.connect(self.max_tokens_input.setValue)
+        self.max_tokens_input.valueChanged.connect(self.max_tokens_slider.setValue)
         
+        # 多样性
+        presence_label = QLabel('多样性 (0-1):')
         self.presence_penalty_input = QDoubleSpinBox()
         self.presence_penalty_input.setRange(0.0, 1.0)
         self.presence_penalty_input.setSingleStep(0.01)
         self.presence_penalty_input.setValue(self.config.get('ai_behavior', {}).get('presence_penalty', 0.9))
-        params_layout.addRow('多样性 (0-1):', self.presence_penalty_input)
+        self.presence_slider = QSlider(Qt.Horizontal)
+        self.presence_slider.setRange(0, 100)
+        self.presence_slider.setValue(int(self.presence_penalty_input.value() * 100))
+        self.presence_slider.valueChanged.connect(lambda v: self.presence_penalty_input.setValue(v/100))
+        self.presence_penalty_input.valueChanged.connect(lambda v: self.presence_slider.setValue(int(v*100)))
         
+        # 重复惩罚
+        freq_label = QLabel('重复惩罚 (0-1):')
         self.frequency_penalty_input = QDoubleSpinBox()
         self.frequency_penalty_input.setRange(0.0, 1.0)
         self.frequency_penalty_input.setSingleStep(0.01)
         self.frequency_penalty_input.setValue(self.config.get('ai_behavior', {}).get('frequency_penalty', 0.0))
-        params_layout.addRow('重复惩罚 (0-1):', self.frequency_penalty_input)
+        self.frequency_slider = QSlider(Qt.Horizontal)
+        self.frequency_slider.setRange(0, 100)
+        self.frequency_slider.setValue(int(self.frequency_penalty_input.value() * 100))
+        self.frequency_slider.valueChanged.connect(lambda v: self.frequency_penalty_input.setValue(v/100))
+        self.frequency_penalty_input.valueChanged.connect(lambda v: self.frequency_slider.setValue(int(v*100)))
         
+        # 话题新鲜度
+        top_p_label = QLabel('话题新鲜度 (0-1):')
         self.top_p_input = QDoubleSpinBox()
         self.top_p_input.setRange(0.0, 1.0)
         self.top_p_input.setSingleStep(0.01)
         self.top_p_input.setValue(self.config.get('ai_behavior', {}).get('top_p', 0.0))
-        params_layout.addRow('话题新鲜度 (0-1):', self.top_p_input)
+        self.top_p_slider = QSlider(Qt.Horizontal)
+        self.top_p_slider.setRange(0, 100)
+        self.top_p_slider.setValue(int(self.top_p_input.value() * 100))
+        self.top_p_slider.valueChanged.connect(lambda v: self.top_p_input.setValue(v/100))
+        self.top_p_input.valueChanged.connect(lambda v: self.top_p_slider.setValue(int(v*100)))
+        
+        # 添加到网格布局
+        params_layout.addWidget(temp_label, 0, 0)
+        params_layout.addWidget(self.temperature_input, 0, 1)
+        params_layout.addWidget(self.temperature_slider, 0, 2)
+        
+        params_layout.addWidget(max_tokens_label, 1, 0)
+        params_layout.addWidget(self.max_tokens_input, 1, 1)
+        params_layout.addWidget(self.max_tokens_slider, 1, 2)
+        
+        params_layout.addWidget(presence_label, 2, 0)
+        params_layout.addWidget(self.presence_penalty_input, 2, 1)
+        params_layout.addWidget(self.presence_slider, 2, 2)
+        
+        params_layout.addWidget(freq_label, 3, 0)
+        params_layout.addWidget(self.frequency_penalty_input, 3, 1)
+        params_layout.addWidget(self.frequency_slider, 3, 2)
+        
+        params_layout.addWidget(top_p_label, 4, 0)
+        params_layout.addWidget(self.top_p_input, 4, 1)
+        params_layout.addWidget(self.top_p_slider, 4, 2)
         
         params_group.setLayout(params_layout)
-        layout.addWidget(params_group)
+        advanced_layout.addWidget(params_group)
         
-        ai_group.setLayout(ai_layout)
-        layout.addWidget(ai_group)
+        # 添加高级参数选项卡
+        tab_widget.addTab(advanced_tab, "高级参数")
+        
+        # 添加选项卡到主布局
+        layout.addWidget(tab_widget)
         
         # 按钮
         buttons = QDialogButtonBox(
@@ -121,7 +215,10 @@ class ConfigDialog(QDialog):
                 'ai_behavior': {
                     'system_prompt': self.system_prompt_input.toPlainText().strip(),
                     'temperature': self.temperature_input.value(),
-                    'max_tokens': self.max_tokens_input.value()
+                    'max_tokens': self.max_tokens_input.value(),
+                    'presence_penalty': self.presence_penalty_input.value(),
+                    'frequency_penalty': self.frequency_penalty_input.value(),
+                    'top_p': self.top_p_input.value()
                 }
             }
             
