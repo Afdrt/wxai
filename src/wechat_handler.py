@@ -108,8 +108,7 @@ class WeChatHandler:
             
         self.logger.info(f"开始设置 {len(self.listen_targets)} 个监听目标")
         
-        def _setup_listener(target):  # 修改这里，移除self参数
-            """设置单个监听目标"""
+        for target in self.listen_targets:
             try:
                 self.logger.info(f"尝试添加监听目标: {target}")
                 # 如果UI引用存在，显示提示信息
@@ -120,40 +119,19 @@ class WeChatHandler:
                 self.wx.AddListenChat(target, savepic=True, savefile=True, savevoice=True)
                 
                 # 添加到监听列表
-                if isinstance(self.listen_targets, set):
-                    self.listen_targets.add(target)
-                else:
-                    if target not in self.listen_targets:
-                        self.listen_targets.append(target)
-                        
-                self.logger.info(f"成功添加监听目标: {target}")
-                success_targets.append(target)
-                return True
+                if target not in success_targets:
+                    success_targets.append(target)
+                    self.logger.info(f"成功添加监听目标: {target}")
             except Exception as e:
-                error_msg = f"添加监听目标 {target} 失败: {str(e)}"
-                self.logger.error(error_msg, exc_info=True)
-                
-                # 显示错误对话框
+                self.logger.error(f"添加监听目标 {target} 失败: {str(e)}", exc_info=True)
                 if self.ui:
-                    from PyQt5.QtWidgets import QMessageBox
-                    QMessageBox.warning(
-                        self.ui, 
-                        "监听设置失败", 
-                        f"添加监听目标 {target} 失败\n\n在监听设置过程中，请勿点击或操作微信窗口！\n\n错误详情: {str(e)}"
-                    )
-                return False
-
-        # 创建并启动所有监听线程
-        threads = []
-        for target in self.listen_targets:
-            # 修改这里，正确传递参数
-            thread = threading.Thread(target=_setup_listener, args=(target,), daemon=True)
-            thread.start()
-            threads.append(thread)
-        
-        # 等待所有线程完成，但最多等待5秒
-        for thread in threads:
-            thread.join(timeout=5)
+                    self.ui.add_message('系统', {
+                        'type': '错误',
+                        'content': f"添加监听对象 {target} 失败: {str(e)}",
+                        'time': datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                        'id': f'error_add_listen_{target}'
+                    })
+                # 继续处理下一个目标，不要中断整个过程
         
         self.logger.info(f"监听设置完成，成功添加 {len(success_targets)} 个目标")
         return success_targets

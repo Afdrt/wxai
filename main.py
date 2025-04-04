@@ -230,15 +230,26 @@ class MainApp:
             # 创建一个单独的线程来设置监听，避免UI卡死
             class SetupListenerThread(QThread):
                 finished = pyqtSignal(list)  # 添加信号，用于返回成功的监听目标
+                error = pyqtSignal(str)  # 添加错误信号
+                status = pyqtSignal(str)  # 添加状态更新信号
                 
                 def __init__(self, wechat_handler):
                     super().__init__()
+                    self.logger = logging.getLogger(__name__)
                     self.wechat = wechat_handler
                     
                 def run(self):
-                    # 设置监听
-                    success_targets = self.wechat.setup_listeners()
-                    self.finished.emit(success_targets)
+                    try:
+                        # 设置监听
+                        self.logger.info("线程开始设置微信监听")
+                        success_targets = self.wechat.setup_listeners()
+                        self.logger.info(f"线程成功设置监听: {success_targets}")
+                        self.finished.emit(success_targets)
+                    except Exception as e:
+                        self.logger.error(f"线程设置监听失败: {str(e)}", exc_info=True)
+                        self.error.emit(f"设置监听失败: {str(e)}")
+                        # 即使失败也要发送空列表，确保主线程能继续执行
+                        self.finished.emit([])
             
             # 创建并启动监听设置线程
             self.logger.info("创建监听设置线程")
@@ -252,7 +263,7 @@ class MainApp:
                     # 更新监听目标
                     self.monitor.update_listen_targets(success_targets)
                 else:
-                    self.logger.info("未设置特定监听目标，监听所有聊天")
+                    self.logger.info("未设置特定监听目标或设置失败，监听所有聊天")
                     self.window.update_status('监听所有聊天对象')
                 
                 # 启动监控
@@ -263,7 +274,19 @@ class MainApp:
                 self.window.set_running_state(True)
                 self.logger.info("监控已成功启动")
             
+            # 处理错误信号
+            def on_setup_error(error_msg):
+                from PyQt5.QtWidgets import QMessageBox
+                self.logger.error(f"监听设置错误: {error_msg}")
+                # 使用 QMetaObject.invokeMethod 确保在主线程中显示对话框
+                QMessageBox.warning(
+                    self.window,
+                    "监听设置警告",
+                    f"部分监听目标设置失败: {error_msg}\n\n程序将继续运行，但部分功能可能受限。"
+                )
+            
             self.setup_thread.finished.connect(on_setup_finished)
+            self.setup_thread.error.connect(on_setup_error)
             
             # 设置监听
             self.logger.info("设置微信监听")
@@ -276,18 +299,60 @@ class MainApp:
     
     def stop_monitoring(self):
         self.logger.info("停止监控")
-        if self.monitor:
-            self.monitor.stop()
-            self.monitor.wait()
-            self.logger.info("消息监控线程已停止")
+        self.window.update_status('正在停止监听，请稍候...')
         
-        if self.wechat:
-            self.wechat.cleanup()
-            self.logger.info("微信监听已清理")
+        # 创建一个停止监听的线程
+        class StopMonitorThread(QThread):
+            finished = pyqtSignal()
+            status = pyqtSignal(str)
+            
+            def __init__(self, monitor, wechat):
+                super().__init__()
+                self.logger = logging.getLogger(__name__)
+                self.monitor = monitor
+                self.wechat = wechat
+                
+            def run(self):
+                try:
+                    if self.monitor:
+                        self.status.emit("正在停止消息监控...")
+                        self.logger.info("停止消息监控线程")
+                        self.monitor.stop()
+                        self.monitor.wait(timeout=3000)  # 最多等待3秒
+                        self.logger.info("消息监控线程已停止")
+                    
+                    if self.wechat:
+                        self.status.emit("正在清理微信监听...")
+                        self.logger.info("清理微信监听")
+                        self.wechat.cleanup()
+                        self.logger.info("微信监听已清理")
+                    
+                    self.status.emit('监听已停止')
+                    self.finished.emit()
+                except Exception as e:
+                    self.logger.error(f"停止监控时出错: {str(e)}", exc_info=True)
+                    self.status.emit(f'停止监控时出错: {str(e)}')
+                    self.finished.emit()
         
-        self.window.set_running_state(False)
-        self.window.update_status('监听已停止')
-        self.logger.info("监控已完全停止")
+        # 创建并启动停止线程
+        self.stop_thread = StopMonitorThread(self.monitor, self.wechat)
+        
+        # 连接信号
+        def on_stop_finished():
+            self.window.set_running_state(False)
+            self.logger.info("监控已完全停止")
+            # 清空引用
+            self.monitor = None
+            self.wechat = None
+        
+        self.stop_thread.finished.connect(on_stop_finished)
+        self.stop_thread.status.connect(self.window.update_status)
+        
+        # 禁用开始/停止按钮，避免重复点击
+        self.window.set_buttons_enabled(False)
+        
+        # 启动停止线程
+        self.stop_thread.start()
     
     def run(self):
         self.logger.info("显示主窗口")

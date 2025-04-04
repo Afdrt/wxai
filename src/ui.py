@@ -444,3 +444,8 @@ class ChatWindow(QMainWindow):
     def is_auto_reply_enabled(self) -> bool:
             """获取自动回复开关状态"""
             return self.auto_reply_checkbox.isChecked()
+
+    def set_buttons_enabled(self, enabled):
+        """设置开始/停止按钮的启用状态"""
+        self.start_button.setEnabled(enabled)
+        self.stop_button.setEnabled(enabled)
