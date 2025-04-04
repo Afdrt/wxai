@@ -4,7 +4,7 @@ from collections import deque
 from datetime import datetime, timedelta
 from typing import Optional
 from PyQt5.QtWidgets import QApplication
-from PyQt5.QtCore import QThread, pyqtSignal, Qt
+from PyQt5.QtCore import QThread, pyqtSignal, Qt, QtCriticalMsg, QtWarningMsg, QtFatalMsg, qInstallMessageHandler
 from PyQt5.QtGui import QTextCursor
 from src.config import WECHAT_CONFIG, AI_CONFIG, UI_CONFIG
 from src.wechat_handler import WeChatHandler
@@ -12,10 +12,18 @@ from src.ai_handler import AIHandler
 from src.ui import ChatWindow
 from src.message_cache import MessageCache
 from src.logger import setup_logger
+from src.exception_handler import GlobalExceptionHandler, setup_thread_exception_hook
 import logging
 
 # 初始化日志系统
 logger = setup_logger()
+
+# 安装全局异常处理器
+exception_handler = GlobalExceptionHandler(logger)
+exception_handler.install()
+
+# 设置线程异常钩子
+setup_thread_exception_hook()
 
 # 注册 QTextCursor 类型
 from PyQt5.QtCore import QMetaType
@@ -140,6 +148,18 @@ class MainApp:
         self.logger = logging.getLogger(__name__)
         self.logger.info("初始化主应用程序")
         self.app = QApplication(sys.argv)
+        
+        # 设置Qt异常处理
+        def qt_message_handler(mode, context, message):
+            if mode == QtCriticalMsg:
+                logger.critical(f"Qt错误: {message}")
+            elif mode == QtWarningMsg:
+                logger.warning(f"Qt警告: {message}")
+            elif mode == QtFatalMsg:
+                logger.critical(f"Qt致命错误: {message}")
+            
+        qInstallMessageHandler(qt_message_handler)
+        
         self.window = ChatWindow(UI_CONFIG)
         self.wechat = None
         self.ai = None
