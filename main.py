@@ -318,7 +318,7 @@ class MainApp:
                         self.status.emit("正在停止消息监控...")
                         self.logger.info("停止消息监控线程")
                         self.monitor.stop()
-                        self.monitor.wait(timeout=3000)  # 最多等待3秒
+                        self.monitor.wait(3000)  # 修改这里，直接传入毫秒值
                         self.logger.info("消息监控线程已停止")
                     
                     if self.wechat:
