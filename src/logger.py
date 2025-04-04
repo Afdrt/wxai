@@ -15,9 +15,9 @@ def setup_logger():
     for handler in root_logger.handlers[:]:
         root_logger.removeHandler(handler)
     
-    # 创建格式化器
+    # 创建格式化器 - 去掉了 %(name)s 部分
     formatter = logging.Formatter(
-        '%(asctime)s [%(levelname)s] %(name)s - %(message)s',
+        '%(asctime)s [%(levelname)s] - %(message)s',
         datefmt='%Y-%m-%d %H:%M:%S'
     )
     
@@ -42,5 +42,6 @@ def setup_logger():
     # 设置第三方库的日志级别
     logging.getLogger('openai').setLevel(logging.WARNING)
     logging.getLogger('urllib3').setLevel(logging.WARNING)
+    logging.getLogger('httpx').setLevel(logging.WARNING)
     
     return root_logger
