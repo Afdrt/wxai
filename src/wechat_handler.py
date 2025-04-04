@@ -108,32 +108,45 @@ class WeChatHandler:
             
         self.logger.info(f"开始设置 {len(self.listen_targets)} 个监听目标")
         
-        def _setup_listener(target: str):
+        def _setup_listener(target):  # 修改这里，移除self参数
+            """设置单个监听目标"""
             try:
                 self.logger.info(f"尝试添加监听目标: {target}")
+                # 如果UI引用存在，显示提示信息
+                if self.ui:
+                    self.ui.update_status(f"正在设置监听 {target}，请勿操作微信窗口...")
+                
+                # 添加监听
                 self.wx.AddListenChat(target, savepic=True, savefile=True, savevoice=True)
-                success_targets.append(target)
+                
+                # 添加到监听列表
+                if isinstance(self.listen_targets, set):
+                    self.listen_targets.add(target)
+                else:
+                    if target not in self.listen_targets:
+                        self.listen_targets.append(target)
+                        
                 self.logger.info(f"成功添加监听目标: {target}")
-                if self.ui:
-                    self.ui.add_message('系统', {
-                        'type': '提示',
-                        'content': f"成功添加监听对象: {target}",
-                        'time': datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-                        'id': f'success_add_listen_{target}'
-                    })
+                success_targets.append(target)
+                return True
             except Exception as e:
-                self.logger.error(f"添加监听目标 {target} 失败: {str(e)}", exc_info=True)
+                error_msg = f"添加监听目标 {target} 失败: {str(e)}"
+                self.logger.error(error_msg, exc_info=True)
+                
+                # 显示错误对话框
                 if self.ui:
-                    self.ui.add_message('系统', {
-                        'type': '错误',
-                        'content': f"添加监听对象 {target} 失败: {str(e)}",
-                        'time': datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-                        'id': f'error_add_listen_{target}'
-                    })
+                    from PyQt5.QtWidgets import QMessageBox
+                    QMessageBox.warning(
+                        self.ui, 
+                        "监听设置失败", 
+                        f"添加监听目标 {target} 失败\n\n在监听设置过程中，请勿点击或操作微信窗口！\n\n错误详情: {str(e)}"
+                    )
+                return False
 
         # 创建并启动所有监听线程
         threads = []
         for target in self.listen_targets:
+            # 修改这里，正确传递参数
             thread = threading.Thread(target=_setup_listener, args=(target,), daemon=True)
             thread.start()
             threads.append(thread)
@@ -198,9 +211,25 @@ class WeChatHandler:
             self.logger.error(f"发送消息到 {target} 失败: {str(e)}", exc_info=True)
             if self.ui:
                 self.ui.add_message('系统', {
-                    'type': '错误',
-                    'content': f'发送消息到 {target} 失败: {str(e)}',
-                    'time': datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-                    'id': f'error_send_{time.time()}'
+                    'type': 'Text',
+                    'content': f'已连接到微信账号: {nickname}',
+                    'time': datetime.now()
+                })  # 添加这个右花括号和括号来关闭字典和方法调用
+                    # 在第229行附近，可能是一个字典定义
+                    # 原来的代码可能是这样的：
+                self.ui.add_message('系统', {
+                    'type': 'Text',
+                    'content': f'发送消息失败: {str(e)}',
+                    'time': datetime.now(),
+                'id': f'error_send_{time.time()}'
                 })
-    
+
+                # 修改为正确的缩进：
+                self.ui.add_message('系统', {
+                    'type': 'Text',
+                    'content': f'发送消息失败: {str(e)}',
+                    'time': datetime.now(),
+                    'id': f'error_send_{time.time()}'
+
+                })
+                    

@@ -219,6 +219,14 @@ class MainApp:
             self.monitor.message_received.connect(self.window.add_message)
             self.monitor.status_updated.connect(self.window.update_status)
             
+            # 设置监听前显示提示
+            from PyQt5.QtWidgets import QMessageBox
+            QMessageBox.information(
+                self.window,
+                "监听设置提示",
+                "即将设置微信监听，在此过程中请勿点击或操作微信窗口，否则可能导致监听设置失败。"
+            )
+            
             # 设置监听
             self.logger.info("设置微信监听")
             success_targets = self.wechat.setup_listeners()
