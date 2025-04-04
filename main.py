@@ -227,25 +227,48 @@ class MainApp:
                 "即将设置微信监听，在此过程中请勿点击或操作微信窗口，否则可能导致监听设置失败。"
             )
             
+            # 创建一个单独的线程来设置监听，避免UI卡死
+            class SetupListenerThread(QThread):
+                finished = pyqtSignal(list)  # 添加信号，用于返回成功的监听目标
+                
+                def __init__(self, wechat_handler):
+                    super().__init__()
+                    self.wechat = wechat_handler
+                    
+                def run(self):
+                    # 设置监听
+                    success_targets = self.wechat.setup_listeners()
+                    self.finished.emit(success_targets)
+            
+            # 创建并启动监听设置线程
+            self.logger.info("创建监听设置线程")
+            self.setup_thread = SetupListenerThread(self.wechat)
+            
+            # 连接信号，处理监听设置完成后的操作
+            def on_setup_finished(success_targets):
+                if success_targets:
+                    self.logger.info(f"成功监听目标: {', '.join(success_targets)}")
+                    self.window.update_status(f'正在监听: {", ".join(success_targets)}')
+                    # 更新监听目标
+                    self.monitor.update_listen_targets(success_targets)
+                else:
+                    self.logger.info("未设置特定监听目标，监听所有聊天")
+                    self.window.update_status('监听所有聊天对象')
+                
+                # 启动监控
+                self.logger.info("启动消息监控线程")
+                self.monitor.start()
+                
+                # 更新UI状态
+                self.window.set_running_state(True)
+                self.logger.info("监控已成功启动")
+            
+            self.setup_thread.finished.connect(on_setup_finished)
+            
             # 设置监听
             self.logger.info("设置微信监听")
-            success_targets = self.wechat.setup_listeners()
-            if success_targets:
-                self.logger.info(f"成功监听目标: {', '.join(success_targets)}")
-                self.window.update_status(f'正在监听: {", ".join(success_targets)}')
-                # 更新监听目标
-                self.monitor.update_listen_targets(success_targets)
-            else:
-                self.logger.info("未设置特定监听目标，监听所有聊天")
-                self.window.update_status('监听所有聊天对象')
-            
-            # 启动监控
-            self.logger.info("启动消息监控线程")
-            self.monitor.start()
-            
-            # 更新UI状态
-            self.window.set_running_state(True)
-            self.logger.info("监控已成功启动")
+            self.window.update_status("正在设置微信监听，请稍候...")
+            self.setup_thread.start()
             
         except Exception as e:
             self.logger.error(f"启动监控失败: {str(e)}", exc_info=True)
