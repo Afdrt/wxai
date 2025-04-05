@@ -70,9 +70,7 @@ class WeChatHandler:
         """移除监听目标"""
         try:
             self.logger.info(f"尝试移除监听目标: {target}")
-            # 先切换到目标聊天
-            self.wx.ChatWith(target)
-            time.sleep(0.5)  # 等待切换完成
+    
             # 移除监听
             self.wx.RemoveListenChat(target)
             if target in self.listen_targets:
@@ -89,11 +87,11 @@ class WeChatHandler:
         """清理所有监听"""
         try:
             self.logger.info("开始清理所有监听目标")
-            # 移除所有监听目标
-            for target in list(self.listen_targets):
-                self.remove_listener(target)
+            # 直接使用 RemoveAllListenChat 方法一次性移除所有监听
+            self.wx.RemoveAllListenChat()
             self.listen_targets.clear()
             self.logger.info("所有监听目标已清理完成")
+            return True
         except Exception as e:
             self.logger.error(f"清理监听失败: {str(e)}", exc_info=True)
             if self.ui:
@@ -169,6 +167,35 @@ class WeChatHandler:
                 'id': f'error_{time.time()}'
             }
 
+    def add_listener(self, target: str) -> bool:
+        """添加单个监听目标
+        
+        Args:
+            target: 要监听的聊天对象名称
+            
+        Returns:
+            bool: 添加是否成功
+        """
+        try:
+            self.logger.info(f"尝试添加监听目标: {target}")
+            
+     
+            
+            # 添加监听
+            self.wx.AddListenChat(target, savepic=True, savefile=True, savevoice=True)
+            
+            # 添加到监听列表
+            if target not in self.listen_targets:
+                self.listen_targets.append(target)
+            
+            self.logger.info(f"成功添加监听目标: {target}")
+            return True
+        except Exception as e:
+            self.logger.error(f"添加监听目标 {target} 失败: {str(e)}", exc_info=True)
+            if self.ui:
+                self.ui.update_status(f'添加监听失败: {str(e)}')
+            return False
+
     def send_message(self, message: str, target: str) -> bool:
         """发送消息到指定目标
         
@@ -190,24 +217,8 @@ class WeChatHandler:
             if self.ui:
                 self.ui.add_message('系统', {
                     'type': 'Text',
-                    'content': f'已连接到微信账号: {nickname}',
-                    'time': datetime.now()
-                })  # 添加这个右花括号和括号来关闭字典和方法调用
-                    # 在第229行附近，可能是一个字典定义
-                    # 原来的代码可能是这样的：
-                self.ui.add_message('系统', {
-                    'type': 'Text',
                     'content': f'发送消息失败: {str(e)}',
-                    'time': datetime.now(),
-                'id': f'error_send_{time.time()}'
-                })
-
-                # 修改为正确的缩进：
-                self.ui.add_message('系统', {
-                    'type': 'Text',
-                    'content': f'发送消息失败: {str(e)}',
-                    'time': datetime.now(),
+                    'time': datetime.datetime.now(),
                     'id': f'error_send_{time.time()}'
-
                 })
                     

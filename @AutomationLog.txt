@@ -1701,3 +1701,1121 @@ Traceback (most recent call last):
               ^^^^^^^^^^^^^^^^^^^^^^^^
 AttributeError: 'WeChatHandler' object has no attribute 'add_listener'
 2025-04-05 15:29:10 [INFO] - === 微信AI助手退出，退出码: 0 ===
+2025-04-05 15:56:27 [INFO] - 全局异常处理器已安装
+2025-04-05 15:56:27 [INFO] - === 微信AI助手启动 ===
+2025-04-05 15:56:27 [INFO] - 初始化主应用程序
+2025-04-05 15:56:27 [INFO] - 提前初始化微信处理器
+2025-04-05 15:56:29 [INFO] - 微信处理器初始化完成
+2025-04-05 15:56:29 [INFO] - 提前初始化AI处理器
+2025-04-05 15:56:29 [INFO] - 开始配置AI服务...
+2025-04-05 15:56:29 [INFO] - 使用自定义服务地址: https://api.siliconflow.cn/v1
+2025-04-05 15:56:29 [INFO] - AI服务配置完成
+2025-04-05 15:56:29 [INFO] - 尝试连接微信客户端
+2025-04-05 15:56:29 [INFO] - 微信初始化成功，当前账号: 上下左右
+2025-04-05 15:56:29 [INFO] - 已连接微信账号: 上下左右
+2025-04-05 15:56:29 [INFO] - 设置UI事件处理器完成
+2025-04-05 15:56:29 [INFO] - 显示主窗口
+2025-04-05 15:56:29 [INFO] - 进入应用程序主循环
+2025-04-05 15:56:41 [INFO] - 开始启动监控
+2025-04-05 15:56:41 [INFO] - 更新AI配置
+2025-04-05 15:56:41 [INFO] - 开始配置AI服务...
+2025-04-05 15:56:41 [INFO] - 使用自定义服务地址: https://api.siliconflow.cn/v1
+2025-04-05 15:56:41 [INFO] - AI服务配置完成
+2025-04-05 15:56:41 [INFO] - 创建消息监控器
+2025-04-05 15:56:41 [INFO] - 消息监控器初始化完成
+2025-04-05 15:56:42 [INFO] - 创建监听设置线程
+2025-04-05 15:56:42 [INFO] - 设置微信监听
+2025-04-05 15:56:42 [INFO] - 线程开始设置微信监听
+2025-04-05 15:56:42 [INFO] - 开始设置 2 个监听目标
+2025-04-05 15:56:42 [INFO] - 尝试添加监听目标: 文件传输助手
+2025-04-05 15:56:42 [WARNING] - Qt警告: QObject::connect: Cannot queue arguments of type 'QTextCursor'
+(Make sure 'QTextCursor' is registered using qRegisterMetaType().)
+2025-04-05 15:56:42 [INFO] - 成功添加监听目标: 文件传输助手
+2025-04-05 15:56:42 [INFO] - 尝试添加监听目标: 微信支付
+2025-04-05 15:56:43 [INFO] - 成功添加监听目标: 微信支付
+2025-04-05 15:56:43 [INFO] - 监听设置完成，成功添加 2 个目标
+2025-04-05 15:56:43 [INFO] - 线程成功设置监听: ['文件传输助手', '微信支付']
+2025-04-05 15:56:43 [INFO] - 成功监听目标: 文件传输助手, 微信支付
+2025-04-05 15:56:43 [INFO] - 更新监听目标: 文件传输助手, 微信支付
+2025-04-05 15:56:43 [INFO] - 启动消息监控线程
+2025-04-05 15:56:43 [INFO] - 监控已成功启动
+2025-04-05 15:56:43 [INFO] - 消息监控线程启动
+2025-04-05 15:57:00 [INFO] - 从 微信支付 获取到 2 条新消息
+2025-04-05 15:57:00 [INFO] - 收到来自 微信支付 的消息: 15:56
+2025-04-05 15:57:00 [INFO] - 收到来自 微信支付 的消息: 56
+2025-04-05 15:57:03 [INFO] - 从 微信支付 获取到 1 条新消息
+2025-04-05 15:57:03 [INFO] - 收到来自 微信支付 的消息: 考我数学啊，我先去复习下。
+2025-04-05 15:57:08 [INFO] - 停止监控
+2025-04-05 15:57:08 [INFO] - 停止消息监控线程
+2025-04-05 15:57:08 [INFO] - 停止消息监控线程
+2025-04-05 15:57:09 [INFO] - 消息监控线程已停止
+2025-04-05 15:57:09 [INFO] - 清理微信监听
+2025-04-05 15:57:09 [INFO] - 开始清理所有监听目标
+2025-04-05 15:57:09 [INFO] - 尝试移除监听目标: 文件传输助手
+2025-04-05 15:57:17 [INFO] - 成功移除监听目标: 文件传输助手
+2025-04-05 15:57:17 [INFO] - 尝试移除监听目标: 微信支付
+2025-04-05 15:57:25 [INFO] - 成功移除监听目标: 微信支付
+2025-04-05 15:57:25 [INFO] - 所有监听目标已清理完成
+2025-04-05 15:57:25 [INFO] - 微信监听已清理
+2025-04-05 15:57:25 [INFO] - 监控已完全停止
+2025-04-05 15:59:49 [INFO] - 开始启动监控
+2025-04-05 15:59:49 [ERROR] - 启动监控失败: 'NoneType' object has no attribute 'listen_targets' and no __dict__ for setting new attributes
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\main.py", line 267, in start_monitoring
+    self.wechat.listen_targets = config['listen_targets']
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'listen_targets' and no __dict__ for setting new attributes
+2025-04-05 15:59:59 [INFO] - 开始启动监控
+2025-04-05 15:59:59 [ERROR] - 启动监控失败: 'NoneType' object has no attribute 'listen_targets' and no __dict__ for setting new attributes
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\main.py", line 267, in start_monitoring
+    self.wechat.listen_targets = config['listen_targets']
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'listen_targets' and no __dict__ for setting new attributes
+2025-04-05 16:00:01 [INFO] - === 微信AI助手退出，退出码: 0 ===
+2025-04-05 16:00:09 [INFO] - 全局异常处理器已安装
+2025-04-05 16:00:09 [INFO] - === 微信AI助手启动 ===
+2025-04-05 16:00:09 [INFO] - 初始化主应用程序
+2025-04-05 16:00:09 [INFO] - 提前初始化微信处理器
+2025-04-05 16:00:11 [INFO] - 微信处理器初始化完成
+2025-04-05 16:00:11 [INFO] - 提前初始化AI处理器
+2025-04-05 16:00:11 [INFO] - 开始配置AI服务...
+2025-04-05 16:00:11 [INFO] - 使用自定义服务地址: https://api.siliconflow.cn/v1
+2025-04-05 16:00:11 [INFO] - AI服务配置完成
+2025-04-05 16:00:11 [INFO] - 尝试连接微信客户端
+2025-04-05 16:00:11 [INFO] - 微信初始化成功，当前账号: 上下左右
+2025-04-05 16:00:11 [INFO] - 已连接微信账号: 上下左右
+2025-04-05 16:00:11 [INFO] - 设置UI事件处理器完成
+2025-04-05 16:00:11 [INFO] - 显示主窗口
+2025-04-05 16:00:11 [INFO] - 进入应用程序主循环
+2025-04-05 16:00:16 [INFO] - 开始启动监控
+2025-04-05 16:00:16 [INFO] - 更新AI配置
+2025-04-05 16:00:16 [INFO] - 开始配置AI服务...
+2025-04-05 16:00:16 [INFO] - 使用自定义服务地址: https://api.siliconflow.cn/v1
+2025-04-05 16:00:16 [INFO] - AI服务配置完成
+2025-04-05 16:00:16 [INFO] - 创建消息监控器
+2025-04-05 16:00:16 [INFO] - 消息监控器初始化完成
+2025-04-05 16:00:17 [INFO] - 创建监听设置线程
+2025-04-05 16:00:17 [INFO] - 设置微信监听
+2025-04-05 16:00:17 [INFO] - 线程开始设置微信监听
+2025-04-05 16:00:17 [INFO] - 开始设置 2 个监听目标
+2025-04-05 16:00:17 [INFO] - 尝试添加监听目标: 文件传输助手
+2025-04-05 16:00:17 [WARNING] - Qt警告: QObject::connect: Cannot queue arguments of type 'QTextCursor'
+(Make sure 'QTextCursor' is registered using qRegisterMetaType().)
+2025-04-05 16:00:18 [INFO] - 成功添加监听目标: 文件传输助手
+2025-04-05 16:00:18 [INFO] - 尝试添加监听目标: 微信支付
+2025-04-05 16:00:18 [INFO] - 成功添加监听目标: 微信支付
+2025-04-05 16:00:18 [INFO] - 监听设置完成，成功添加 2 个目标
+2025-04-05 16:00:18 [INFO] - 线程成功设置监听: ['文件传输助手', '微信支付']
+2025-04-05 16:00:18 [INFO] - 成功监听目标: 文件传输助手, 微信支付
+2025-04-05 16:00:18 [INFO] - 更新监听目标: 文件传输助手, 微信支付
+2025-04-05 16:00:18 [INFO] - 启动消息监控线程
+2025-04-05 16:00:18 [INFO] - 监控已成功启动
+2025-04-05 16:00:18 [INFO] - 消息监控线程启动
+2025-04-05 16:00:22 [INFO] - 停止监控
+2025-04-05 16:00:22 [INFO] - 停止消息监控线程
+2025-04-05 16:00:22 [INFO] - 停止消息监控线程
+2025-04-05 16:00:23 [INFO] - 消息监控线程已停止
+2025-04-05 16:00:23 [INFO] - 清理微信监听
+2025-04-05 16:00:23 [INFO] - 开始清理所有监听目标
+2025-04-05 16:00:23 [INFO] - 尝试移除监听目标: 文件传输助手
+2025-04-05 16:00:31 [INFO] - 成功移除监听目标: 文件传输助手
+2025-04-05 16:00:31 [INFO] - 尝试移除监听目标: 微信支付
+2025-04-05 16:00:38 [INFO] - 成功移除监听目标: 微信支付
+2025-04-05 16:00:38 [INFO] - 所有监听目标已清理完成
+2025-04-05 16:00:38 [INFO] - 微信监听已清理
+2025-04-05 16:00:38 [INFO] - 监控已完全停止
+2025-04-05 16:00:40 [INFO] - 开始启动监控
+2025-04-05 16:00:40 [ERROR] - 启动监控失败: 'NoneType' object has no attribute 'listen_targets' and no __dict__ for setting new attributes
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\main.py", line 267, in start_monitoring
+    self.wechat.listen_targets = config['listen_targets']
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'listen_targets' and no __dict__ for setting new attributes
+2025-04-05 16:01:09 [INFO] - === 微信AI助手退出，退出码: 0 ===
+2025-04-05 16:01:22 [INFO] - 全局异常处理器已安装
+2025-04-05 16:01:22 [INFO] - === 微信AI助手启动 ===
+2025-04-05 16:01:22 [INFO] - 初始化主应用程序
+2025-04-05 16:01:22 [INFO] - 提前初始化微信处理器
+2025-04-05 16:01:24 [INFO] - 微信处理器初始化完成
+2025-04-05 16:01:24 [INFO] - 提前初始化AI处理器
+2025-04-05 16:01:24 [INFO] - 开始配置AI服务...
+2025-04-05 16:01:24 [INFO] - 使用自定义服务地址: https://api.siliconflow.cn/v1
+2025-04-05 16:01:24 [INFO] - AI服务配置完成
+2025-04-05 16:01:24 [INFO] - 尝试连接微信客户端
+2025-04-05 16:01:24 [INFO] - 微信初始化成功，当前账号: 上下左右
+2025-04-05 16:01:24 [INFO] - 已连接微信账号: 上下左右
+2025-04-05 16:01:24 [INFO] - 设置UI事件处理器完成
+2025-04-05 16:01:24 [INFO] - 显示主窗口
+2025-04-05 16:01:25 [INFO] - 进入应用程序主循环
+2025-04-05 16:01:31 [INFO] - 开始启动监控
+2025-04-05 16:01:31 [INFO] - 更新AI配置
+2025-04-05 16:01:31 [INFO] - 开始配置AI服务...
+2025-04-05 16:01:31 [INFO] - 使用自定义服务地址: https://api.siliconflow.cn/v1
+2025-04-05 16:01:31 [INFO] - AI服务配置完成
+2025-04-05 16:01:31 [INFO] - 创建消息监控器
+2025-04-05 16:01:31 [INFO] - 消息监控器初始化完成
+2025-04-05 16:01:32 [INFO] - 创建监听设置线程
+2025-04-05 16:01:32 [INFO] - 设置微信监听
+2025-04-05 16:01:32 [INFO] - 线程开始设置微信监听
+2025-04-05 16:01:32 [INFO] - 开始设置 2 个监听目标
+2025-04-05 16:01:32 [INFO] - 尝试添加监听目标: 文件传输助手
+2025-04-05 16:01:32 [WARNING] - Qt警告: QObject::connect: Cannot queue arguments of type 'QTextCursor'
+(Make sure 'QTextCursor' is registered using qRegisterMetaType().)
+2025-04-05 16:01:32 [INFO] - 成功添加监听目标: 文件传输助手
+2025-04-05 16:01:32 [INFO] - 尝试添加监听目标: 微信支付
+2025-04-05 16:01:33 [INFO] - 成功添加监听目标: 微信支付
+2025-04-05 16:01:33 [INFO] - 监听设置完成，成功添加 2 个目标
+2025-04-05 16:01:33 [INFO] - 线程成功设置监听: ['文件传输助手', '微信支付']
+2025-04-05 16:01:33 [INFO] - 成功监听目标: 文件传输助手, 微信支付
+2025-04-05 16:01:33 [INFO] - 更新监听目标: 文件传输助手, 微信支付
+2025-04-05 16:01:33 [INFO] - 启动消息监控线程
+2025-04-05 16:01:33 [INFO] - 监控已成功启动
+2025-04-05 16:01:33 [INFO] - 消息监控线程启动
+2025-04-05 16:01:34 [INFO] - 停止监控
+2025-04-05 16:01:34 [INFO] - 停止消息监控线程
+2025-04-05 16:01:34 [INFO] - 停止消息监控线程
+2025-04-05 16:01:34 [INFO] - 消息监控线程已停止
+2025-04-05 16:01:34 [INFO] - 清理微信监听
+2025-04-05 16:01:34 [INFO] - 开始清理所有监听目标
+2025-04-05 16:01:34 [INFO] - 尝试移除监听目标: 文件传输助手
+2025-04-05 16:01:38 [INFO] - === 微信AI助手退出，退出码: 0 ===
+2025-04-05 16:03:07 [INFO] - 全局异常处理器已安装
+2025-04-05 16:03:07 [INFO] - === 微信AI助手启动 ===
+2025-04-05 16:03:07 [INFO] - 初始化主应用程序
+2025-04-05 16:03:07 [INFO] - 提前初始化微信处理器
+2025-04-05 16:03:09 [INFO] - 微信处理器初始化完成
+2025-04-05 16:03:09 [INFO] - 提前初始化AI处理器
+2025-04-05 16:03:09 [INFO] - 开始配置AI服务...
+2025-04-05 16:03:09 [INFO] - 使用自定义服务地址: https://api.siliconflow.cn/v1
+2025-04-05 16:03:09 [INFO] - AI服务配置完成
+2025-04-05 16:03:09 [INFO] - 尝试连接微信客户端
+2025-04-05 16:03:09 [INFO] - 微信初始化成功，当前账号: 上下左右
+2025-04-05 16:03:09 [INFO] - 已连接微信账号: 上下左右
+2025-04-05 16:03:09 [INFO] - 设置UI事件处理器完成
+2025-04-05 16:03:09 [INFO] - 显示主窗口
+2025-04-05 16:03:09 [INFO] - 进入应用程序主循环
+2025-04-05 16:03:15 [ERROR] - 添加监听目标异常: 'WeChatHandler' object has no attribute 'add_listener'
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\main.py", line 208, in add_single_listener
+    success = self.wechat.add_listener(target)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'WeChatHandler' object has no attribute 'add_listener'
+2025-04-05 16:03:17 [INFO] - 开始启动监控
+2025-04-05 16:03:17 [INFO] - 更新AI配置
+2025-04-05 16:03:17 [INFO] - 开始配置AI服务...
+2025-04-05 16:03:17 [INFO] - 使用自定义服务地址: https://api.siliconflow.cn/v1
+2025-04-05 16:03:17 [INFO] - AI服务配置完成
+2025-04-05 16:03:17 [INFO] - 创建消息监控器
+2025-04-05 16:03:17 [INFO] - 消息监控器初始化完成
+2025-04-05 16:03:18 [INFO] - 创建监听设置线程
+2025-04-05 16:03:18 [INFO] - 设置微信监听
+2025-04-05 16:03:18 [INFO] - 线程开始设置微信监听
+2025-04-05 16:03:18 [INFO] - 开始设置 2 个监听目标
+2025-04-05 16:03:18 [INFO] - 尝试添加监听目标: 文件传输助手
+2025-04-05 16:03:18 [WARNING] - Qt警告: QObject::connect: Cannot queue arguments of type 'QTextCursor'
+(Make sure 'QTextCursor' is registered using qRegisterMetaType().)
+2025-04-05 16:03:18 [INFO] - 成功添加监听目标: 文件传输助手
+2025-04-05 16:03:18 [INFO] - 尝试添加监听目标: 微信支付
+2025-04-05 16:03:18 [INFO] - 成功添加监听目标: 微信支付
+2025-04-05 16:03:18 [INFO] - 监听设置完成，成功添加 2 个目标
+2025-04-05 16:03:18 [INFO] - 线程成功设置监听: ['文件传输助手', '微信支付']
+2025-04-05 16:03:18 [INFO] - 成功监听目标: 文件传输助手, 微信支付
+2025-04-05 16:03:18 [INFO] - 更新监听目标: 文件传输助手, 微信支付
+2025-04-05 16:03:18 [INFO] - 启动消息监控线程
+2025-04-05 16:03:18 [INFO] - 监控已成功启动
+2025-04-05 16:03:18 [INFO] - 消息监控线程启动
+2025-04-05 16:03:20 [INFO] - 停止监控
+2025-04-05 16:03:20 [INFO] - 停止消息监控线程
+2025-04-05 16:03:20 [INFO] - 停止消息监控线程
+2025-04-05 16:03:20 [INFO] - 消息监控线程已停止
+2025-04-05 16:03:20 [INFO] - 清理微信监听
+2025-04-05 16:03:20 [INFO] - 开始清理所有监听目标
+2025-04-05 16:03:20 [ERROR] - 清理监听失败: 'WeChat' object has no attribute 'RemoveAllListenChat'
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 93, in cleanup
+    self.wx.RemoveAllListenChat()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'WeChat' object has no attribute 'RemoveAllListenChat'. Did you mean: 'RemoveListenChat'?
+2025-04-05 16:03:20 [INFO] - 微信监听已清理
+2025-04-05 16:03:20 [INFO] - 监控已完全停止
+2025-04-05 16:03:38 [INFO] - 开始启动监控
+2025-04-05 16:03:38 [ERROR] - 启动监控失败: 'NoneType' object has no attribute 'listen_targets' and no __dict__ for setting new attributes
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\main.py", line 267, in start_monitoring
+    self.wechat.listen_targets = config['listen_targets']
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'listen_targets' and no __dict__ for setting new attributes
+2025-04-05 16:03:40 [INFO] - 开始启动监控
+2025-04-05 16:03:40 [ERROR] - 启动监控失败: 'NoneType' object has no attribute 'listen_targets' and no __dict__ for setting new attributes
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\main.py", line 267, in start_monitoring
+    self.wechat.listen_targets = config['listen_targets']
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'listen_targets' and no __dict__ for setting new attributes
+2025-04-05 16:03:40 [INFO] - 开始启动监控
+2025-04-05 16:03:40 [ERROR] - 启动监控失败: 'NoneType' object has no attribute 'listen_targets' and no __dict__ for setting new attributes
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\main.py", line 267, in start_monitoring
+    self.wechat.listen_targets = config['listen_targets']
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'listen_targets' and no __dict__ for setting new attributes
+2025-04-05 16:03:54 [INFO] - === 微信AI助手退出，退出码: 0 ===
+2025-04-05 16:04:47 [INFO] - 全局异常处理器已安装
+2025-04-05 16:04:47 [INFO] - === 微信AI助手启动 ===
+2025-04-05 16:04:47 [INFO] - 初始化主应用程序
+2025-04-05 16:04:47 [INFO] - 提前初始化微信处理器
+2025-04-05 16:04:49 [INFO] - 微信处理器初始化完成
+2025-04-05 16:04:49 [INFO] - 提前初始化AI处理器
+2025-04-05 16:04:49 [INFO] - 开始配置AI服务...
+2025-04-05 16:04:49 [INFO] - 使用自定义服务地址: https://api.siliconflow.cn/v1
+2025-04-05 16:04:49 [INFO] - AI服务配置完成
+2025-04-05 16:04:49 [INFO] - 尝试连接微信客户端
+2025-04-05 16:04:49 [INFO] - 微信初始化成功，当前账号: 上下左右
+2025-04-05 16:04:49 [INFO] - 已连接微信账号: 上下左右
+2025-04-05 16:04:49 [INFO] - 设置UI事件处理器完成
+2025-04-05 16:04:49 [INFO] - 显示主窗口
+2025-04-05 16:04:50 [INFO] - 进入应用程序主循环
+2025-04-05 16:04:53 [INFO] - 开始启动监控
+2025-04-05 16:04:53 [INFO] - 更新AI配置
+2025-04-05 16:04:53 [INFO] - 开始配置AI服务...
+2025-04-05 16:04:53 [INFO] - 使用自定义服务地址: https://api.siliconflow.cn/v1
+2025-04-05 16:04:53 [INFO] - AI服务配置完成
+2025-04-05 16:04:53 [INFO] - 创建消息监控器
+2025-04-05 16:04:53 [INFO] - 消息监控器初始化完成
+2025-04-05 16:04:54 [INFO] - 创建监听设置线程
+2025-04-05 16:04:54 [INFO] - 设置微信监听
+2025-04-05 16:04:54 [INFO] - 线程开始设置微信监听
+2025-04-05 16:04:54 [INFO] - 开始设置 2 个监听目标
+2025-04-05 16:04:54 [INFO] - 尝试添加监听目标: 文件传输助手
+2025-04-05 16:04:54 [WARNING] - Qt警告: QObject::connect: Cannot queue arguments of type 'QTextCursor'
+(Make sure 'QTextCursor' is registered using qRegisterMetaType().)
+2025-04-05 16:04:54 [INFO] - 成功添加监听目标: 文件传输助手
+2025-04-05 16:04:54 [INFO] - 尝试添加监听目标: 微信支付
+2025-04-05 16:04:55 [INFO] - 成功添加监听目标: 微信支付
+2025-04-05 16:04:55 [INFO] - 监听设置完成，成功添加 2 个目标
+2025-04-05 16:04:55 [INFO] - 线程成功设置监听: ['文件传输助手', '微信支付']
+2025-04-05 16:04:55 [INFO] - 成功监听目标: 文件传输助手, 微信支付
+2025-04-05 16:04:55 [INFO] - 更新监听目标: 文件传输助手, 微信支付
+2025-04-05 16:04:55 [INFO] - 启动消息监控线程
+2025-04-05 16:04:55 [INFO] - 监控已成功启动
+2025-04-05 16:04:55 [INFO] - 消息监控线程启动
+2025-04-05 16:04:57 [INFO] - 停止监控
+2025-04-05 16:04:57 [INFO] - 停止消息监控线程
+2025-04-05 16:04:57 [INFO] - 停止消息监控线程
+2025-04-05 16:04:58 [INFO] - 消息监控线程已停止
+2025-04-05 16:04:58 [INFO] - 清理微信监听
+2025-04-05 16:04:58 [INFO] - 开始清理所有监听目标
+2025-04-05 16:04:58 [ERROR] - 清理监听失败: 'WeChat' object has no attribute 'RemoveAllListenChat'
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 93, in cleanup
+    self.wx.RemoveAllListenChat()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'WeChat' object has no attribute 'RemoveAllListenChat'. Did you mean: 'RemoveListenChat'?
+2025-04-05 16:04:58 [INFO] - 微信监听已清理
+2025-04-05 16:04:58 [INFO] - 监控已完全停止
+2025-04-05 16:05:00 [INFO] - 开始启动监控
+2025-04-05 16:05:00 [INFO] - 更新AI配置
+2025-04-05 16:05:00 [INFO] - 开始配置AI服务...
+2025-04-05 16:05:00 [INFO] - 使用自定义服务地址: https://api.siliconflow.cn/v1
+2025-04-05 16:05:00 [INFO] - AI服务配置完成
+2025-04-05 16:05:00 [INFO] - 创建消息监控器
+2025-04-05 16:05:00 [INFO] - 消息监控器初始化完成
+2025-04-05 16:05:00 [INFO] - 创建监听设置线程
+2025-04-05 16:05:00 [INFO] - 设置微信监听
+2025-04-05 16:05:00 [INFO] - 线程开始设置微信监听
+2025-04-05 16:05:00 [INFO] - 开始设置 2 个监听目标
+2025-04-05 16:05:00 [INFO] - 尝试添加监听目标: 文件传输助手
+2025-04-05 16:05:01 [INFO] - 成功添加监听目标: 文件传输助手
+2025-04-05 16:05:01 [INFO] - 尝试添加监听目标: 微信支付
+2025-04-05 16:05:02 [INFO] - 成功添加监听目标: 微信支付
+2025-04-05 16:05:02 [INFO] - 监听设置完成，成功添加 2 个目标
+2025-04-05 16:05:02 [INFO] - 线程成功设置监听: ['文件传输助手', '微信支付']
+2025-04-05 16:05:02 [INFO] - 成功监听目标: 文件传输助手, 微信支付
+2025-04-05 16:05:02 [INFO] - 更新监听目标: 文件传输助手, 微信支付
+2025-04-05 16:05:02 [INFO] - 启动消息监控线程
+2025-04-05 16:05:02 [INFO] - 监控已成功启动
+2025-04-05 16:05:02 [INFO] - 消息监控线程启动
+2025-04-05 16:05:04 [INFO] - 停止监控
+2025-04-05 16:05:04 [INFO] - 停止消息监控线程
+2025-04-05 16:05:04 [INFO] - 停止消息监控线程
+2025-04-05 16:05:04 [INFO] - 消息监控线程已停止
+2025-04-05 16:05:04 [INFO] - 清理微信监听
+2025-04-05 16:05:04 [INFO] - 开始清理所有监听目标
+2025-04-05 16:05:04 [ERROR] - 清理监听失败: 'WeChat' object has no attribute 'RemoveAllListenChat'
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 93, in cleanup
+    self.wx.RemoveAllListenChat()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'WeChat' object has no attribute 'RemoveAllListenChat'. Did you mean: 'RemoveListenChat'?
+2025-04-05 16:05:04 [INFO] - 微信监听已清理
+2025-04-05 16:05:04 [INFO] - 监控已完全停止
+2025-04-05 16:05:13 [INFO] - 开始启动监控
+2025-04-05 16:05:13 [INFO] - 更新AI配置
+2025-04-05 16:05:13 [INFO] - 开始配置AI服务...
+2025-04-05 16:05:13 [INFO] - 使用自定义服务地址: https://api.siliconflow.cn/v1
+2025-04-05 16:05:13 [INFO] - AI服务配置完成
+2025-04-05 16:05:13 [INFO] - 创建消息监控器
+2025-04-05 16:05:13 [INFO] - 消息监控器初始化完成
+2025-04-05 16:05:14 [INFO] - 创建监听设置线程
+2025-04-05 16:05:14 [INFO] - 设置微信监听
+2025-04-05 16:05:14 [INFO] - 线程开始设置微信监听
+2025-04-05 16:05:14 [INFO] - 开始设置 2 个监听目标
+2025-04-05 16:05:14 [INFO] - 尝试添加监听目标: 文件传输助手
+2025-04-05 16:05:15 [INFO] - 成功添加监听目标: 文件传输助手
+2025-04-05 16:05:15 [INFO] - 尝试添加监听目标: 微信支付
+2025-04-05 16:05:15 [INFO] - 成功添加监听目标: 微信支付
+2025-04-05 16:05:15 [INFO] - 监听设置完成，成功添加 2 个目标
+2025-04-05 16:05:15 [INFO] - 线程成功设置监听: ['文件传输助手', '微信支付']
+2025-04-05 16:05:15 [INFO] - 成功监听目标: 文件传输助手, 微信支付
+2025-04-05 16:05:15 [INFO] - 更新监听目标: 文件传输助手, 微信支付
+2025-04-05 16:05:15 [INFO] - 启动消息监控线程
+2025-04-05 16:05:15 [INFO] - 监控已成功启动
+2025-04-05 16:05:15 [INFO] - 消息监控线程启动
+2025-04-05 16:05:23 [INFO] - 从 文件传输助手 获取到 1 条新消息
+2025-04-05 16:05:23 [INFO] - 收到来自 文件传输助手 的消息: 963
+2025-04-05 16:05:23 [INFO] - 已缓存来自 文件传输助手 的消息: 963
+2025-04-05 16:05:26 [INFO] - 开始处理来自 文件传输助手 的消息组合
+2025-04-05 16:05:26 [INFO] - 开始处理消息: 用户发送了以下多条消息：
+用户: 963
+请统一回复这些消息。
+2025-04-05 16:05:26 [INFO] - 使用模型 deepseek-ai/DeepSeek-R1-Distill-Qwen-7B 发送请求
+2025-04-05 16:05:32 [INFO] - 收到AI响应: 963：好的，有什么我可以帮助你的吗？
+2025-04-05 16:05:32 [INFO] - 收到AI回复: 963：好的，有什么我可以帮助你的吗？
+2025-04-05 16:05:32 [INFO] - 尝试发送消息到 文件传输助手: 963：好的，有什么我可以帮助你的吗？
+2025-04-05 16:05:34 [INFO] - 成功发送消息到 文件传输助手
+2025-04-05 16:05:34 [INFO] - 已成功发送回复到 文件传输助手
+2025-04-05 16:05:35 [ERROR] - 获取 文件传输助手 的消息时出错: (-2146233083, None, (None, None, None, 0, None))
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 42, in get_new_messages
+    new_messages = self.wx.GetListenMessage(target)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\wxauto.py", line 591, in GetListenMessage
+    msg = chat.GetNewMessage(savepic=chat.savepic, savefile=chat.savefile, savevoice=chat.savevoice)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 333, in GetNewMessage
+    MsgItems = self.C_MsgList.GetChildren()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5963, in GetChildren
+    child = child.GetNextSiblingControl()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5869, in GetNextSiblingControl
+    ele = _AutomationClient.instance().ViewWalker.GetNextSiblingElement(self.Element)
+_ctypes.COMError: (-2146233083, None, (None, None, None, 0, None))
+2025-04-05 16:05:35 [ERROR] - 获取 微信支付 的消息时出错: (-2146233083, None, (None, None, None, 0, None))
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 42, in get_new_messages
+    new_messages = self.wx.GetListenMessage(target)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\wxauto.py", line 591, in GetListenMessage
+    msg = chat.GetNewMessage(savepic=chat.savepic, savefile=chat.savefile, savevoice=chat.savevoice)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 333, in GetNewMessage
+    MsgItems = self.C_MsgList.GetChildren()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5960, in GetChildren
+    child = self.GetFirstChildControl()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5855, in GetFirstChildControl
+    ele = _AutomationClient.instance().ViewWalker.GetFirstChildElement(self.Element)
+_ctypes.COMError: (-2146233083, None, (None, None, None, 0, None))
+2025-04-05 16:05:35 [ERROR] - 获取 文件传输助手 的消息时出错: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 42, in get_new_messages
+    new_messages = self.wx.GetListenMessage(target)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\wxauto.py", line 591, in GetListenMessage
+    msg = chat.GetNewMessage(savepic=chat.savepic, savefile=chat.savefile, savevoice=chat.savevoice)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 333, in GetNewMessage
+    MsgItems = self.C_MsgList.GetChildren()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5960, in GetChildren
+    child = self.GetFirstChildControl()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5855, in GetFirstChildControl
+    ele = _AutomationClient.instance().ViewWalker.GetFirstChildElement(self.Element)
+_ctypes.COMError: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+2025-04-05 16:05:35 [ERROR] - 获取 微信支付 的消息时出错: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 42, in get_new_messages
+    new_messages = self.wx.GetListenMessage(target)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\wxauto.py", line 591, in GetListenMessage
+    msg = chat.GetNewMessage(savepic=chat.savepic, savefile=chat.savefile, savevoice=chat.savevoice)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 333, in GetNewMessage
+    MsgItems = self.C_MsgList.GetChildren()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5960, in GetChildren
+    child = self.GetFirstChildControl()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5855, in GetFirstChildControl
+    ele = _AutomationClient.instance().ViewWalker.GetFirstChildElement(self.Element)
+_ctypes.COMError: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+2025-04-05 16:05:35 [ERROR] - 获取 文件传输助手 的消息时出错: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 42, in get_new_messages
+    new_messages = self.wx.GetListenMessage(target)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\wxauto.py", line 591, in GetListenMessage
+    msg = chat.GetNewMessage(savepic=chat.savepic, savefile=chat.savefile, savevoice=chat.savevoice)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 333, in GetNewMessage
+    MsgItems = self.C_MsgList.GetChildren()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5960, in GetChildren
+    child = self.GetFirstChildControl()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5855, in GetFirstChildControl
+    ele = _AutomationClient.instance().ViewWalker.GetFirstChildElement(self.Element)
+_ctypes.COMError: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+2025-04-05 16:05:35 [ERROR] - 获取 微信支付 的消息时出错: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 42, in get_new_messages
+    new_messages = self.wx.GetListenMessage(target)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\wxauto.py", line 591, in GetListenMessage
+    msg = chat.GetNewMessage(savepic=chat.savepic, savefile=chat.savefile, savevoice=chat.savevoice)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 333, in GetNewMessage
+    MsgItems = self.C_MsgList.GetChildren()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5960, in GetChildren
+    child = self.GetFirstChildControl()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5855, in GetFirstChildControl
+    ele = _AutomationClient.instance().ViewWalker.GetFirstChildElement(self.Element)
+_ctypes.COMError: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+2025-04-05 16:05:35 [ERROR] - 获取 文件传输助手 的消息时出错: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 42, in get_new_messages
+    new_messages = self.wx.GetListenMessage(target)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\wxauto.py", line 591, in GetListenMessage
+    msg = chat.GetNewMessage(savepic=chat.savepic, savefile=chat.savefile, savevoice=chat.savevoice)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 333, in GetNewMessage
+    MsgItems = self.C_MsgList.GetChildren()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5960, in GetChildren
+    child = self.GetFirstChildControl()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5855, in GetFirstChildControl
+    ele = _AutomationClient.instance().ViewWalker.GetFirstChildElement(self.Element)
+_ctypes.COMError: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+2025-04-05 16:05:35 [ERROR] - 获取 微信支付 的消息时出错: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 42, in get_new_messages
+    new_messages = self.wx.GetListenMessage(target)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\wxauto.py", line 591, in GetListenMessage
+    msg = chat.GetNewMessage(savepic=chat.savepic, savefile=chat.savefile, savevoice=chat.savevoice)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 333, in GetNewMessage
+    MsgItems = self.C_MsgList.GetChildren()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5960, in GetChildren
+    child = self.GetFirstChildControl()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5855, in GetFirstChildControl
+    ele = _AutomationClient.instance().ViewWalker.GetFirstChildElement(self.Element)
+_ctypes.COMError: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+2025-04-05 16:05:35 [ERROR] - 获取 文件传输助手 的消息时出错: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 42, in get_new_messages
+    new_messages = self.wx.GetListenMessage(target)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\wxauto.py", line 591, in GetListenMessage
+    msg = chat.GetNewMessage(savepic=chat.savepic, savefile=chat.savefile, savevoice=chat.savevoice)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 333, in GetNewMessage
+    MsgItems = self.C_MsgList.GetChildren()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5960, in GetChildren
+    child = self.GetFirstChildControl()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5855, in GetFirstChildControl
+    ele = _AutomationClient.instance().ViewWalker.GetFirstChildElement(self.Element)
+_ctypes.COMError: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+2025-04-05 16:05:35 [ERROR] - 获取 微信支付 的消息时出错: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 42, in get_new_messages
+    new_messages = self.wx.GetListenMessage(target)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\wxauto.py", line 591, in GetListenMessage
+    msg = chat.GetNewMessage(savepic=chat.savepic, savefile=chat.savefile, savevoice=chat.savevoice)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 333, in GetNewMessage
+    MsgItems = self.C_MsgList.GetChildren()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5960, in GetChildren
+    child = self.GetFirstChildControl()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5855, in GetFirstChildControl
+    ele = _AutomationClient.instance().ViewWalker.GetFirstChildElement(self.Element)
+_ctypes.COMError: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+2025-04-05 16:05:35 [ERROR] - 获取 文件传输助手 的消息时出错: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 42, in get_new_messages
+    new_messages = self.wx.GetListenMessage(target)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\wxauto.py", line 591, in GetListenMessage
+    msg = chat.GetNewMessage(savepic=chat.savepic, savefile=chat.savefile, savevoice=chat.savevoice)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 333, in GetNewMessage
+    MsgItems = self.C_MsgList.GetChildren()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5960, in GetChildren
+    child = self.GetFirstChildControl()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5855, in GetFirstChildControl
+    ele = _AutomationClient.instance().ViewWalker.GetFirstChildElement(self.Element)
+_ctypes.COMError: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+2025-04-05 16:05:35 [ERROR] - 获取 微信支付 的消息时出错: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 42, in get_new_messages
+    new_messages = self.wx.GetListenMessage(target)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\wxauto.py", line 591, in GetListenMessage
+    msg = chat.GetNewMessage(savepic=chat.savepic, savefile=chat.savefile, savevoice=chat.savevoice)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 333, in GetNewMessage
+    MsgItems = self.C_MsgList.GetChildren()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5960, in GetChildren
+    child = self.GetFirstChildControl()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5855, in GetFirstChildControl
+    ele = _AutomationClient.instance().ViewWalker.GetFirstChildElement(self.Element)
+_ctypes.COMError: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+2025-04-05 16:05:35 [ERROR] - 获取 文件传输助手 的消息时出错: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 42, in get_new_messages
+    new_messages = self.wx.GetListenMessage(target)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\wxauto.py", line 591, in GetListenMessage
+    msg = chat.GetNewMessage(savepic=chat.savepic, savefile=chat.savefile, savevoice=chat.savevoice)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 333, in GetNewMessage
+    MsgItems = self.C_MsgList.GetChildren()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5960, in GetChildren
+    child = self.GetFirstChildControl()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5855, in GetFirstChildControl
+    ele = _AutomationClient.instance().ViewWalker.GetFirstChildElement(self.Element)
+_ctypes.COMError: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+2025-04-05 16:05:35 [ERROR] - 获取 微信支付 的消息时出错: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 42, in get_new_messages
+    new_messages = self.wx.GetListenMessage(target)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\wxauto.py", line 591, in GetListenMessage
+    msg = chat.GetNewMessage(savepic=chat.savepic, savefile=chat.savefile, savevoice=chat.savevoice)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 333, in GetNewMessage
+    MsgItems = self.C_MsgList.GetChildren()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5960, in GetChildren
+    child = self.GetFirstChildControl()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5855, in GetFirstChildControl
+    ele = _AutomationClient.instance().ViewWalker.GetFirstChildElement(self.Element)
+_ctypes.COMError: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+2025-04-05 16:05:36 [ERROR] - 获取 文件传输助手 的消息时出错: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 42, in get_new_messages
+    new_messages = self.wx.GetListenMessage(target)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\wxauto.py", line 591, in GetListenMessage
+    msg = chat.GetNewMessage(savepic=chat.savepic, savefile=chat.savefile, savevoice=chat.savevoice)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 333, in GetNewMessage
+    MsgItems = self.C_MsgList.GetChildren()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5960, in GetChildren
+    child = self.GetFirstChildControl()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5855, in GetFirstChildControl
+    ele = _AutomationClient.instance().ViewWalker.GetFirstChildElement(self.Element)
+_ctypes.COMError: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+2025-04-05 16:05:36 [ERROR] - 获取 微信支付 的消息时出错: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 42, in get_new_messages
+    new_messages = self.wx.GetListenMessage(target)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\wxauto.py", line 591, in GetListenMessage
+    msg = chat.GetNewMessage(savepic=chat.savepic, savefile=chat.savefile, savevoice=chat.savevoice)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 333, in GetNewMessage
+    MsgItems = self.C_MsgList.GetChildren()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5960, in GetChildren
+    child = self.GetFirstChildControl()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5855, in GetFirstChildControl
+    ele = _AutomationClient.instance().ViewWalker.GetFirstChildElement(self.Element)
+_ctypes.COMError: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+2025-04-05 16:05:36 [ERROR] - 获取 文件传输助手 的消息时出错: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 42, in get_new_messages
+    new_messages = self.wx.GetListenMessage(target)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\wxauto.py", line 591, in GetListenMessage
+    msg = chat.GetNewMessage(savepic=chat.savepic, savefile=chat.savefile, savevoice=chat.savevoice)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 333, in GetNewMessage
+    MsgItems = self.C_MsgList.GetChildren()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5960, in GetChildren
+    child = self.GetFirstChildControl()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5855, in GetFirstChildControl
+    ele = _AutomationClient.instance().ViewWalker.GetFirstChildElement(self.Element)
+_ctypes.COMError: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+2025-04-05 16:05:36 [ERROR] - 获取 微信支付 的消息时出错: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 42, in get_new_messages
+    new_messages = self.wx.GetListenMessage(target)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\wxauto.py", line 591, in GetListenMessage
+    msg = chat.GetNewMessage(savepic=chat.savepic, savefile=chat.savefile, savevoice=chat.savevoice)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 333, in GetNewMessage
+    MsgItems = self.C_MsgList.GetChildren()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5960, in GetChildren
+    child = self.GetFirstChildControl()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5855, in GetFirstChildControl
+    ele = _AutomationClient.instance().ViewWalker.GetFirstChildElement(self.Element)
+_ctypes.COMError: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+2025-04-05 16:05:36 [ERROR] - 获取 文件传输助手 的消息时出错: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 42, in get_new_messages
+    new_messages = self.wx.GetListenMessage(target)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\wxauto.py", line 591, in GetListenMessage
+    msg = chat.GetNewMessage(savepic=chat.savepic, savefile=chat.savefile, savevoice=chat.savevoice)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 333, in GetNewMessage
+    MsgItems = self.C_MsgList.GetChildren()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5960, in GetChildren
+    child = self.GetFirstChildControl()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5855, in GetFirstChildControl
+    ele = _AutomationClient.instance().ViewWalker.GetFirstChildElement(self.Element)
+_ctypes.COMError: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+2025-04-05 16:05:36 [ERROR] - 获取 微信支付 的消息时出错: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 42, in get_new_messages
+    new_messages = self.wx.GetListenMessage(target)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\wxauto.py", line 591, in GetListenMessage
+    msg = chat.GetNewMessage(savepic=chat.savepic, savefile=chat.savefile, savevoice=chat.savevoice)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 333, in GetNewMessage
+    MsgItems = self.C_MsgList.GetChildren()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5960, in GetChildren
+    child = self.GetFirstChildControl()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5855, in GetFirstChildControl
+    ele = _AutomationClient.instance().ViewWalker.GetFirstChildElement(self.Element)
+_ctypes.COMError: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+2025-04-05 16:05:36 [ERROR] - 获取 文件传输助手 的消息时出错: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 42, in get_new_messages
+    new_messages = self.wx.GetListenMessage(target)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\wxauto.py", line 591, in GetListenMessage
+    msg = chat.GetNewMessage(savepic=chat.savepic, savefile=chat.savefile, savevoice=chat.savevoice)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 333, in GetNewMessage
+    MsgItems = self.C_MsgList.GetChildren()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5960, in GetChildren
+    child = self.GetFirstChildControl()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5855, in GetFirstChildControl
+    ele = _AutomationClient.instance().ViewWalker.GetFirstChildElement(self.Element)
+_ctypes.COMError: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+2025-04-05 16:05:36 [ERROR] - 获取 微信支付 的消息时出错: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 42, in get_new_messages
+    new_messages = self.wx.GetListenMessage(target)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\wxauto.py", line 591, in GetListenMessage
+    msg = chat.GetNewMessage(savepic=chat.savepic, savefile=chat.savefile, savevoice=chat.savevoice)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 333, in GetNewMessage
+    MsgItems = self.C_MsgList.GetChildren()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5960, in GetChildren
+    child = self.GetFirstChildControl()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5855, in GetFirstChildControl
+    ele = _AutomationClient.instance().ViewWalker.GetFirstChildElement(self.Element)
+_ctypes.COMError: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+2025-04-05 16:05:36 [ERROR] - 获取 文件传输助手 的消息时出错: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 42, in get_new_messages
+    new_messages = self.wx.GetListenMessage(target)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\wxauto.py", line 591, in GetListenMessage
+    msg = chat.GetNewMessage(savepic=chat.savepic, savefile=chat.savefile, savevoice=chat.savevoice)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 333, in GetNewMessage
+    MsgItems = self.C_MsgList.GetChildren()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5960, in GetChildren
+    child = self.GetFirstChildControl()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5855, in GetFirstChildControl
+    ele = _AutomationClient.instance().ViewWalker.GetFirstChildElement(self.Element)
+_ctypes.COMError: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+2025-04-05 16:05:36 [ERROR] - 获取 微信支付 的消息时出错: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 42, in get_new_messages
+    new_messages = self.wx.GetListenMessage(target)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\wxauto.py", line 591, in GetListenMessage
+    msg = chat.GetNewMessage(savepic=chat.savepic, savefile=chat.savefile, savevoice=chat.savevoice)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 333, in GetNewMessage
+    MsgItems = self.C_MsgList.GetChildren()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5960, in GetChildren
+    child = self.GetFirstChildControl()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5855, in GetFirstChildControl
+    ele = _AutomationClient.instance().ViewWalker.GetFirstChildElement(self.Element)
+_ctypes.COMError: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+2025-04-05 16:05:41 [ERROR] - 获取 文件传输助手 的消息时出错: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 42, in get_new_messages
+    new_messages = self.wx.GetListenMessage(target)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\wxauto.py", line 591, in GetListenMessage
+    msg = chat.GetNewMessage(savepic=chat.savepic, savefile=chat.savefile, savevoice=chat.savevoice)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 333, in GetNewMessage
+    MsgItems = self.C_MsgList.GetChildren()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5960, in GetChildren
+    child = self.GetFirstChildControl()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5855, in GetFirstChildControl
+    ele = _AutomationClient.instance().ViewWalker.GetFirstChildElement(self.Element)
+_ctypes.COMError: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+2025-04-05 16:05:41 [ERROR] - 获取 微信支付 的消息时出错: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 42, in get_new_messages
+    new_messages = self.wx.GetListenMessage(target)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\wxauto.py", line 591, in GetListenMessage
+    msg = chat.GetNewMessage(savepic=chat.savepic, savefile=chat.savefile, savevoice=chat.savevoice)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 333, in GetNewMessage
+    MsgItems = self.C_MsgList.GetChildren()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5960, in GetChildren
+    child = self.GetFirstChildControl()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5855, in GetFirstChildControl
+    ele = _AutomationClient.instance().ViewWalker.GetFirstChildElement(self.Element)
+_ctypes.COMError: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+2025-04-05 16:05:41 [ERROR] - 获取 文件传输助手 的消息时出错: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 42, in get_new_messages
+    new_messages = self.wx.GetListenMessage(target)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\wxauto.py", line 591, in GetListenMessage
+    msg = chat.GetNewMessage(savepic=chat.savepic, savefile=chat.savefile, savevoice=chat.savevoice)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 333, in GetNewMessage
+    MsgItems = self.C_MsgList.GetChildren()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5960, in GetChildren
+    child = self.GetFirstChildControl()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5855, in GetFirstChildControl
+    ele = _AutomationClient.instance().ViewWalker.GetFirstChildElement(self.Element)
+_ctypes.COMError: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+2025-04-05 16:05:41 [ERROR] - 获取 微信支付 的消息时出错: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 42, in get_new_messages
+    new_messages = self.wx.GetListenMessage(target)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\wxauto.py", line 591, in GetListenMessage
+    msg = chat.GetNewMessage(savepic=chat.savepic, savefile=chat.savefile, savevoice=chat.savevoice)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 333, in GetNewMessage
+    MsgItems = self.C_MsgList.GetChildren()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5960, in GetChildren
+    child = self.GetFirstChildControl()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5855, in GetFirstChildControl
+    ele = _AutomationClient.instance().ViewWalker.GetFirstChildElement(self.Element)
+_ctypes.COMError: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+2025-04-05 17:01:25 [INFO] - 全局异常处理器已安装
+2025-04-05 17:01:25 [INFO] - === 微信AI助手启动 ===
+2025-04-05 17:01:25 [INFO] - 初始化主应用程序
+2025-04-05 17:01:25 [INFO] - 提前初始化微信处理器
+2025-04-05 17:01:27 [INFO] - 微信处理器初始化完成
+2025-04-05 17:01:27 [INFO] - 提前初始化AI处理器
+2025-04-05 17:01:27 [INFO] - 开始配置AI服务...
+2025-04-05 17:01:27 [INFO] - 使用自定义服务地址: https://api.siliconflow.cn/v1
+2025-04-05 17:01:27 [INFO] - AI服务配置完成
+2025-04-05 17:01:27 [INFO] - 尝试连接微信客户端
+2025-04-05 17:01:27 [INFO] - 微信初始化成功，当前账号: 上下左右
+2025-04-05 17:01:27 [INFO] - 已连接微信账号: 上下左右
+2025-04-05 17:01:27 [INFO] - 设置UI事件处理器完成
+2025-04-05 17:01:27 [INFO] - 显示主窗口
+2025-04-05 17:01:28 [INFO] - 进入应用程序主循环
+2025-04-05 17:02:12 [ERROR] - 添加监听目标异常: 'WeChatHandler' object has no attribute 'add_listener'
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\main.py", line 208, in add_single_listener
+    success = self.wechat.add_listener(target)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'WeChatHandler' object has no attribute 'add_listener'
+2025-04-05 17:02:14 [INFO] - 尝试移除监听目标: 微信支付
+2025-04-05 17:02:19 [INFO] - 成功移除监听目标: 微信支付
+2025-04-05 17:57:18 [ERROR] - 添加监听目标异常: 'WeChatHandler' object has no attribute 'add_listener'
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\main.py", line 208, in add_single_listener
+    success = self.wechat.add_listener(target)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'WeChatHandler' object has no attribute 'add_listener'
+2025-04-05 17:57:33 [INFO] - === 微信AI助手退出，退出码: 0 ===
+2025-04-05 18:05:36 [INFO] - 全局异常处理器已安装
+2025-04-05 18:05:36 [INFO] - === 微信AI助手启动 ===
+2025-04-05 18:05:36 [INFO] - 初始化主应用程序
+2025-04-05 18:05:36 [INFO] - 提前初始化微信处理器
+2025-04-05 18:05:39 [INFO] - 微信处理器初始化完成
+2025-04-05 18:05:39 [INFO] - 提前初始化AI处理器
+2025-04-05 18:05:39 [INFO] - 开始配置AI服务...
+2025-04-05 18:05:39 [INFO] - 使用自定义服务地址: https://api.siliconflow.cn/v1
+2025-04-05 18:05:39 [INFO] - AI服务配置完成
+2025-04-05 18:05:39 [INFO] - 尝试连接微信客户端
+2025-04-05 18:05:39 [INFO] - 微信初始化成功，当前账号: 上下左右
+2025-04-05 18:05:39 [INFO] - 已连接微信账号: 上下左右
+2025-04-05 18:05:39 [INFO] - 设置UI事件处理器完成
+2025-04-05 18:05:39 [INFO] - 显示主窗口
+2025-04-05 18:05:39 [INFO] - 进入应用程序主循环
+2025-04-05 18:05:44 [INFO] - 开始启动监控
+2025-04-05 18:05:44 [INFO] - 更新AI配置
+2025-04-05 18:05:44 [INFO] - 开始配置AI服务...
+2025-04-05 18:05:44 [INFO] - 使用自定义服务地址: https://api.siliconflow.cn/v1
+2025-04-05 18:05:44 [INFO] - AI服务配置完成
+2025-04-05 18:05:44 [INFO] - 创建消息监控器
+2025-04-05 18:05:44 [INFO] - 消息监控器初始化完成
+2025-04-05 18:05:45 [INFO] - 创建监听设置线程
+2025-04-05 18:05:45 [INFO] - 设置微信监听
+2025-04-05 18:05:45 [INFO] - 线程开始设置微信监听
+2025-04-05 18:05:45 [INFO] - 开始设置 2 个监听目标
+2025-04-05 18:05:45 [INFO] - 尝试添加监听目标: 文件传输助手
+2025-04-05 18:05:45 [WARNING] - Qt警告: QObject::connect: Cannot queue arguments of type 'QTextCursor'
+(Make sure 'QTextCursor' is registered using qRegisterMetaType().)
+2025-04-05 18:05:45 [INFO] - 成功添加监听目标: 文件传输助手
+2025-04-05 18:05:45 [INFO] - 尝试添加监听目标: 微信支付
+2025-04-05 18:05:47 [INFO] - 成功添加监听目标: 微信支付
+2025-04-05 18:05:47 [INFO] - 监听设置完成，成功添加 2 个目标
+2025-04-05 18:05:47 [INFO] - 线程成功设置监听: ['文件传输助手', '微信支付']
+2025-04-05 18:05:47 [INFO] - 成功监听目标: 文件传输助手, 微信支付
+2025-04-05 18:05:47 [INFO] - 更新监听目标: 文件传输助手, 微信支付
+2025-04-05 18:05:47 [INFO] - 启动消息监控线程
+2025-04-05 18:05:47 [INFO] - 监控已成功启动
+2025-04-05 18:05:47 [INFO] - 消息监控线程启动
+2025-04-05 18:05:55 [INFO] - 尝试移除监听目标: 微信支付
+2025-04-05 18:05:55 [INFO] - 成功移除监听目标: 微信支付
+2025-04-05 18:05:55 [INFO] - 更新监听目标: 文件传输助手
+2025-04-05 18:05:58 [INFO] - 尝试移除监听目标: 文件传输助手
+2025-04-05 18:05:58 [INFO] - 成功移除监听目标: 文件传输助手
+2025-04-05 18:05:58 [INFO] - 更新监听目标: 
+2025-04-05 18:06:02 [INFO] - 停止监控
+2025-04-05 18:06:02 [INFO] - 停止消息监控线程
+2025-04-05 18:06:02 [INFO] - 停止消息监控线程
+2025-04-05 18:06:02 [INFO] - 消息监控线程已停止
+2025-04-05 18:06:02 [INFO] - 清理微信监听
+2025-04-05 18:06:02 [INFO] - 开始清理所有监听目标
+2025-04-05 18:06:02 [ERROR] - 清理监听失败: 'WeChat' object has no attribute 'RemoveAllListenChat'
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 91, in cleanup
+    self.wx.RemoveAllListenChat()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'WeChat' object has no attribute 'RemoveAllListenChat'. Did you mean: 'RemoveListenChat'?
+2025-04-05 18:06:02 [INFO] - 微信监听已清理
+2025-04-05 18:06:02 [INFO] - 监控已完全停止
+2025-04-05 18:09:37 [INFO] - 开始启动监控
+2025-04-05 18:09:37 [INFO] - 更新AI配置
+2025-04-05 18:09:37 [INFO] - 开始配置AI服务...
+2025-04-05 18:09:37 [INFO] - 使用自定义服务地址: https://api.siliconflow.cn/v1
+2025-04-05 18:09:37 [INFO] - AI服务配置完成
+2025-04-05 18:09:37 [INFO] - 创建消息监控器
+2025-04-05 18:09:37 [INFO] - 消息监控器初始化完成
+2025-04-05 18:09:38 [INFO] - 创建监听设置线程
+2025-04-05 18:09:38 [INFO] - 设置微信监听
+2025-04-05 18:09:38 [INFO] - 线程开始设置微信监听
+2025-04-05 18:09:38 [INFO] - 开始设置 2 个监听目标
+2025-04-05 18:09:38 [INFO] - 尝试添加监听目标: 文件传输助手
+2025-04-05 18:09:39 [INFO] - 成功添加监听目标: 文件传输助手
+2025-04-05 18:09:39 [INFO] - 尝试添加监听目标: 微信支付
+2025-04-05 18:09:40 [INFO] - 成功添加监听目标: 微信支付
+2025-04-05 18:09:40 [INFO] - 监听设置完成，成功添加 2 个目标
+2025-04-05 18:09:40 [INFO] - 线程成功设置监听: ['文件传输助手', '微信支付']
+2025-04-05 18:09:40 [INFO] - 成功监听目标: 文件传输助手, 微信支付
+2025-04-05 18:09:40 [INFO] - 更新监听目标: 文件传输助手, 微信支付
+2025-04-05 18:09:40 [INFO] - 启动消息监控线程
+2025-04-05 18:09:40 [INFO] - 监控已成功启动
+2025-04-05 18:09:40 [INFO] - 消息监控线程启动
+2025-04-05 18:09:44 [INFO] - 从 文件传输助手 获取到 2 条新消息
+2025-04-05 18:09:44 [INFO] - 收到来自 文件传输助手 的消息: 18:09
+2025-04-05 18:09:44 [INFO] - 收到来自 文件传输助手 的消息: 963
+2025-04-05 18:09:44 [INFO] - 已缓存来自 文件传输助手 的消息: 963
+2025-04-05 18:09:49 [INFO] - 开始处理来自 文件传输助手 的消息组合
+2025-04-05 18:09:49 [INFO] - 开始处理消息: 用户发送了以下多条消息：
+用户: 963
+请统一回复这些消息。
+2025-04-05 18:09:49 [INFO] - 使用模型 deepseek-ai/DeepSeek-R1-Distill-Qwen-7B 发送请求
+2025-04-05 18:09:52 [INFO] - 收到AI响应: 963：好的，有什么我可以帮助你的吗？
+2025-04-05 18:09:52 [INFO] - 收到AI回复: 963：好的，有什么我可以帮助你的吗？
+2025-04-05 18:09:52 [INFO] - 尝试发送消息到 文件传输助手: 963：好的，有什么我可以帮助你的吗？
+2025-04-05 18:09:56 [INFO] - 成功发送消息到 文件传输助手
+2025-04-05 18:09:56 [INFO] - 已成功发送回复到 文件传输助手
+2025-04-05 18:09:57 [INFO] - 从 文件传输助手 获取到 1 条新消息
+2025-04-05 18:09:58 [INFO] - 收到来自 文件传输助手 的消息: 963：好的，有什么我可以帮助你的吗？
+2025-04-05 18:09:58 [INFO] - 跳过缓存AI回复内容: 963：好的，有什么我可以帮助你的吗？
+2025-04-05 18:09:58 [ERROR] - 获取 文件传输助手 的消息时出错: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 42, in get_new_messages
+    new_messages = self.wx.GetListenMessage(target)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\wxauto.py", line 591, in GetListenMessage
+    msg = chat.GetNewMessage(savepic=chat.savepic, savefile=chat.savefile, savevoice=chat.savevoice)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 333, in GetNewMessage
+    MsgItems = self.C_MsgList.GetChildren()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5960, in GetChildren
+    child = self.GetFirstChildControl()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5855, in GetFirstChildControl
+    ele = _AutomationClient.instance().ViewWalker.GetFirstChildElement(self.Element)
+_ctypes.COMError: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+2025-04-05 18:09:58 [ERROR] - 获取 微信支付 的消息时出错: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 42, in get_new_messages
+    new_messages = self.wx.GetListenMessage(target)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\wxauto.py", line 591, in GetListenMessage
+    msg = chat.GetNewMessage(savepic=chat.savepic, savefile=chat.savefile, savevoice=chat.savevoice)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 338, in GetNewMessage
+    self.usedmsgid = [i[-1] for i in self._getmsgs(MsgItems)]
+                                     ~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 68, in _getmsgs
+    if MsgItem.ControlTypeName == 'ListItemControl':
+       ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5796, in ControlTypeName
+    return ControlTypeNames[self.ControlType]
+                            ^^^^^^^^^^^^^^^^
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5494, in ControlType
+    return self.Element.CurrentControlType
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ctypes.COMError: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+2025-04-05 18:09:58 [ERROR] - 获取 文件传输助手 的消息时出错: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 42, in get_new_messages
+    new_messages = self.wx.GetListenMessage(target)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\wxauto.py", line 591, in GetListenMessage
+    msg = chat.GetNewMessage(savepic=chat.savepic, savefile=chat.savefile, savevoice=chat.savevoice)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 333, in GetNewMessage
+    MsgItems = self.C_MsgList.GetChildren()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5960, in GetChildren
+    child = self.GetFirstChildControl()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5855, in GetFirstChildControl
+    ele = _AutomationClient.instance().ViewWalker.GetFirstChildElement(self.Element)
+_ctypes.COMError: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+2025-04-05 18:09:58 [ERROR] - 获取 微信支付 的消息时出错: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 42, in get_new_messages
+    new_messages = self.wx.GetListenMessage(target)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\wxauto.py", line 591, in GetListenMessage
+    msg = chat.GetNewMessage(savepic=chat.savepic, savefile=chat.savefile, savevoice=chat.savevoice)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 333, in GetNewMessage
+    MsgItems = self.C_MsgList.GetChildren()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5960, in GetChildren
+    child = self.GetFirstChildControl()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5855, in GetFirstChildControl
+    ele = _AutomationClient.instance().ViewWalker.GetFirstChildElement(self.Element)
+_ctypes.COMError: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+2025-04-05 18:09:58 [ERROR] - 获取 文件传输助手 的消息时出错: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 42, in get_new_messages
+    new_messages = self.wx.GetListenMessage(target)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\wxauto.py", line 591, in GetListenMessage
+    msg = chat.GetNewMessage(savepic=chat.savepic, savefile=chat.savefile, savevoice=chat.savevoice)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 333, in GetNewMessage
+    MsgItems = self.C_MsgList.GetChildren()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5960, in GetChildren
+    child = self.GetFirstChildControl()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5855, in GetFirstChildControl
+    ele = _AutomationClient.instance().ViewWalker.GetFirstChildElement(self.Element)
+_ctypes.COMError: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+2025-04-05 18:09:58 [ERROR] - 获取 微信支付 的消息时出错: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 42, in get_new_messages
+    new_messages = self.wx.GetListenMessage(target)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\wxauto.py", line 591, in GetListenMessage
+    msg = chat.GetNewMessage(savepic=chat.savepic, savefile=chat.savefile, savevoice=chat.savevoice)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 333, in GetNewMessage
+    MsgItems = self.C_MsgList.GetChildren()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5960, in GetChildren
+    child = self.GetFirstChildControl()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5855, in GetFirstChildControl
+    ele = _AutomationClient.instance().ViewWalker.GetFirstChildElement(self.Element)
+_ctypes.COMError: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+2025-04-05 18:09:59 [ERROR] - 获取 文件传输助手 的消息时出错: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 42, in get_new_messages
+    new_messages = self.wx.GetListenMessage(target)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\wxauto.py", line 591, in GetListenMessage
+    msg = chat.GetNewMessage(savepic=chat.savepic, savefile=chat.savefile, savevoice=chat.savevoice)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 333, in GetNewMessage
+    MsgItems = self.C_MsgList.GetChildren()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5960, in GetChildren
+    child = self.GetFirstChildControl()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5855, in GetFirstChildControl
+    ele = _AutomationClient.instance().ViewWalker.GetFirstChildElement(self.Element)
+_ctypes.COMError: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+2025-04-05 18:09:59 [ERROR] - 获取 微信支付 的消息时出错: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 42, in get_new_messages
+    new_messages = self.wx.GetListenMessage(target)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\wxauto.py", line 591, in GetListenMessage
+    msg = chat.GetNewMessage(savepic=chat.savepic, savefile=chat.savefile, savevoice=chat.savevoice)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 333, in GetNewMessage
+    MsgItems = self.C_MsgList.GetChildren()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5960, in GetChildren
+    child = self.GetFirstChildControl()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5855, in GetFirstChildControl
+    ele = _AutomationClient.instance().ViewWalker.GetFirstChildElement(self.Element)
+_ctypes.COMError: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+2025-04-05 18:09:59 [ERROR] - 获取 文件传输助手 的消息时出错: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 42, in get_new_messages
+    new_messages = self.wx.GetListenMessage(target)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\wxauto.py", line 591, in GetListenMessage
+    msg = chat.GetNewMessage(savepic=chat.savepic, savefile=chat.savefile, savevoice=chat.savevoice)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 333, in GetNewMessage
+    MsgItems = self.C_MsgList.GetChildren()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5960, in GetChildren
+    child = self.GetFirstChildControl()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5855, in GetFirstChildControl
+    ele = _AutomationClient.instance().ViewWalker.GetFirstChildElement(self.Element)
+_ctypes.COMError: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+2025-04-05 18:09:59 [ERROR] - 获取 微信支付 的消息时出错: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 42, in get_new_messages
+    new_messages = self.wx.GetListenMessage(target)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\wxauto.py", line 591, in GetListenMessage
+    msg = chat.GetNewMessage(savepic=chat.savepic, savefile=chat.savefile, savevoice=chat.savevoice)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 333, in GetNewMessage
+    MsgItems = self.C_MsgList.GetChildren()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5960, in GetChildren
+    child = self.GetFirstChildControl()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5855, in GetFirstChildControl
+    ele = _AutomationClient.instance().ViewWalker.GetFirstChildElement(self.Element)
+_ctypes.COMError: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+2025-04-05 18:09:59 [ERROR] - 获取 文件传输助手 的消息时出错: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 42, in get_new_messages
+    new_messages = self.wx.GetListenMessage(target)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\wxauto.py", line 591, in GetListenMessage
+    msg = chat.GetNewMessage(savepic=chat.savepic, savefile=chat.savefile, savevoice=chat.savevoice)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 333, in GetNewMessage
+    MsgItems = self.C_MsgList.GetChildren()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5960, in GetChildren
+    child = self.GetFirstChildControl()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5855, in GetFirstChildControl
+    ele = _AutomationClient.instance().ViewWalker.GetFirstChildElement(self.Element)
+_ctypes.COMError: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+2025-04-05 18:09:59 [ERROR] - 获取 微信支付 的消息时出错: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 42, in get_new_messages
+    new_messages = self.wx.GetListenMessage(target)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\wxauto.py", line 591, in GetListenMessage
+    msg = chat.GetNewMessage(savepic=chat.savepic, savefile=chat.savefile, savevoice=chat.savevoice)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 333, in GetNewMessage
+    MsgItems = self.C_MsgList.GetChildren()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5960, in GetChildren
+    child = self.GetFirstChildControl()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5855, in GetFirstChildControl
+    ele = _AutomationClient.instance().ViewWalker.GetFirstChildElement(self.Element)
+_ctypes.COMError: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+2025-04-05 18:09:59 [ERROR] - 获取 文件传输助手 的消息时出错: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 42, in get_new_messages
+    new_messages = self.wx.GetListenMessage(target)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\wxauto.py", line 591, in GetListenMessage
+    msg = chat.GetNewMessage(savepic=chat.savepic, savefile=chat.savefile, savevoice=chat.savevoice)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 333, in GetNewMessage
+    MsgItems = self.C_MsgList.GetChildren()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5960, in GetChildren
+    child = self.GetFirstChildControl()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5855, in GetFirstChildControl
+    ele = _AutomationClient.instance().ViewWalker.GetFirstChildElement(self.Element)
+_ctypes.COMError: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+2025-04-05 18:09:59 [ERROR] - 获取 微信支付 的消息时出错: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 42, in get_new_messages
+    new_messages = self.wx.GetListenMessage(target)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\wxauto.py", line 591, in GetListenMessage
+    msg = chat.GetNewMessage(savepic=chat.savepic, savefile=chat.savefile, savevoice=chat.savevoice)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 333, in GetNewMessage
+    MsgItems = self.C_MsgList.GetChildren()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5960, in GetChildren
+    child = self.GetFirstChildControl()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5855, in GetFirstChildControl
+    ele = _AutomationClient.instance().ViewWalker.GetFirstChildElement(self.Element)
+_ctypes.COMError: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+2025-04-05 18:10:04 [ERROR] - 获取 文件传输助手 的消息时出错: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 42, in get_new_messages
+    new_messages = self.wx.GetListenMessage(target)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\wxauto.py", line 591, in GetListenMessage
+    msg = chat.GetNewMessage(savepic=chat.savepic, savefile=chat.savefile, savevoice=chat.savevoice)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 333, in GetNewMessage
+    MsgItems = self.C_MsgList.GetChildren()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5960, in GetChildren
+    child = self.GetFirstChildControl()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5855, in GetFirstChildControl
+    ele = _AutomationClient.instance().ViewWalker.GetFirstChildElement(self.Element)
+_ctypes.COMError: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+2025-04-05 18:10:04 [ERROR] - 获取 微信支付 的消息时出错: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 42, in get_new_messages
+    new_messages = self.wx.GetListenMessage(target)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\wxauto.py", line 591, in GetListenMessage
+    msg = chat.GetNewMessage(savepic=chat.savepic, savefile=chat.savefile, savevoice=chat.savevoice)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 333, in GetNewMessage
+    MsgItems = self.C_MsgList.GetChildren()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5960, in GetChildren
+    child = self.GetFirstChildControl()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5855, in GetFirstChildControl
+    ele = _AutomationClient.instance().ViewWalker.GetFirstChildElement(self.Element)
+_ctypes.COMError: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+2025-04-05 18:10:04 [ERROR] - 获取 文件传输助手 的消息时出错: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 42, in get_new_messages
+    new_messages = self.wx.GetListenMessage(target)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\wxauto.py", line 591, in GetListenMessage
+    msg = chat.GetNewMessage(savepic=chat.savepic, savefile=chat.savefile, savevoice=chat.savevoice)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 333, in GetNewMessage
+    MsgItems = self.C_MsgList.GetChildren()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5960, in GetChildren
+    child = self.GetFirstChildControl()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5855, in GetFirstChildControl
+    ele = _AutomationClient.instance().ViewWalker.GetFirstChildElement(self.Element)
+_ctypes.COMError: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+2025-04-05 18:10:04 [ERROR] - 获取 微信支付 的消息时出错: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+Traceback (most recent call last):
+  File "c:\Users\32294\Desktop\微信机器人相关代码\源码\wx\src\wechat_handler.py", line 42, in get_new_messages
+    new_messages = self.wx.GetListenMessage(target)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\wxauto.py", line 591, in GetListenMessage
+    msg = chat.GetNewMessage(savepic=chat.savepic, savefile=chat.savefile, savevoice=chat.savevoice)
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\elements.py", line 333, in GetNewMessage
+    MsgItems = self.C_MsgList.GetChildren()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5960, in GetChildren
+    child = self.GetFirstChildControl()
+  File "C:\Users\32294\AppData\Local\Programs\Python\Python313\Lib\site-packages\wxauto\uiautomation.py", line 5855, in GetFirstChildControl
+    ele = _AutomationClient.instance().ViewWalker.GetFirstChildElement(self.Element)
+_ctypes.COMError: (-2147220991, '事件无法调用任何订户', (None, None, None, 0, None))
+2025-04-05 18:12:03.619 wxauto.py[316] ChatWith -> Can not move cursor. ListItemControl's BoundingRectangle is (0,0,0,0)[0x0]. SearchProperties: {RegexName: '文件传输助手', ControlType: ListItemControl}
+2025-04-05 18:12:03.727 wxauto.py[574] AddListenChat -> Can not move cursor. ListItemControl's BoundingRectangle is (0,0,0,0)[0x0]. SearchProperties: {RegexName: '文件传输助手', ControlType: ListItemControl}

@@ -261,19 +261,19 @@ class MainApp:
                 'top_p': config['ai_behavior']['top_p']
             })
             
-            # 更新微信配置
-            if config['listen_targets']:
-                WECHAT_CONFIG['listen_targets'] = config['listen_targets']
-                self.wechat.listen_targets = config['listen_targets']
-            
             # 检查微信是否已初始化，如果没有或者出错，尝试重新初始化
-            if not hasattr(self.wechat, 'wx') or not self.wechat.wx:
-                self.logger.info("微信未初始化，尝试重新初始化")
+            if not self.wechat or not hasattr(self.wechat, 'wx') or not self.wechat.wx:
+                self.logger.info("微信未初始化或已失效，尝试重新初始化")
                 self.wechat = WeChatHandler(WECHAT_CONFIG)
                 self.wechat.set_ui(self.window)
                 nickname = self.wechat.initialize()
                 self.logger.info(f"已重新连接微信账号: {nickname}")
                 self.window.update_status(f'已重新连接微信账号: {nickname}')
+            
+            # 更新微信配置
+            if config['listen_targets']:
+                WECHAT_CONFIG['listen_targets'] = config['listen_targets']
+                self.wechat.listen_targets = config['listen_targets']
             
             # 更新AI处理器配置
             self.ai.update_config(AI_CONFIG)
@@ -406,9 +406,9 @@ class MainApp:
         def on_stop_finished():
             self.window.set_running_state(False)
             self.logger.info("监控已完全停止")
-            # 清空引用
+            # 修改这里：不要将wechat设为None，只将monitor设为None
             self.monitor = None
-            self.wechat = None
+            # self.wechat = None  # 注释掉这行，保留wechat实例
         
         self.stop_thread.finished.connect(on_stop_finished)
         self.stop_thread.status.connect(self.window.update_status)
