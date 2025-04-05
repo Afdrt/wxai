@@ -87,8 +87,6 @@ class WeChatHandler:
         """清理所有监听"""
         try:
             self.logger.info("开始清理所有监听目标")
-            # 直接使用 RemoveAllListenChat 方法一次性移除所有监听
-            self.wx.RemoveAllListenChat()
             self.listen_targets.clear()
             self.logger.info("所有监听目标已清理完成")
             return True
