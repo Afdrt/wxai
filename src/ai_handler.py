@@ -88,22 +88,33 @@ class AIHandler:
             self.logger.error(error_msg, exc_info=True)  # 添加异常堆栈信息
             raise ConfigurationError(error_msg)
     
-    def update_config(self, new_config: Dict) -> None:
-        """更新AI配置
+    def update_config(self, config: dict) -> None:
+        """更新AI配置"""
+        self.logger.info("更新AI配置")
+        self.api_key = config.get('api_key', '')
+        self.service = config.get('service', '')
+        self.model = config.get('model', 'gpt-3.5-turbo')
+        self.system_prompt = config.get('system_prompt', '')
+        self.temperature = config.get('temperature', 0.7)
+        self.max_tokens = config.get('max_tokens', 2000)
+        self.presence_penalty = config.get('presence_penalty', 0)
+        self.frequency_penalty = config.get('frequency_penalty', 0)
+        self.top_p = config.get('top_p', 1.0)
         
-        Args:
-            new_config: 新的配置字典
-        
-        Raises:
-            ConfigurationError: 更新配置过程中发生错误
-        """
+        # 重新初始化客户端
+        # 使用与__init__方法中相同的初始化逻辑，而不是调用不存在的_init_client方法
         try:
-            self.logger.info('更新AI配置')
-            self.config.update(new_config)
-            self.service = self.config.get('service', 'openai')
-            self.setup_service()
-            self.logger.info('成功更新AI配置')
+            self.logger.info("开始配置AI服务...")
+            
+            # 设置API密钥
+            openai.api_key = self.api_key
+            
+            # 如果提供了自定义服务地址，则设置
+            if self.service:
+                self.logger.info(f"使用自定义服务地址: {self.service}")
+                openai.api_base = self.service
+            
+            self.logger.info("AI服务配置完成")
         except Exception as e:
-            error_msg = f'更新配置失败: {str(e)}'
-            self.logger.error(error_msg, exc_info=True)
-            raise ConfigurationError(error_msg)
+            self.logger.error(f"AI服务配置失败: {str(e)}")
+            raise ConfigurationError(f"AI服务配置失败: {str(e)}")

@@ -267,6 +267,14 @@ class ChatWindow(QMainWindow):
         button_layout.addWidget(self.remove_button)
         left_layout.addLayout(button_layout)
         
+        # 添加监听操作按钮
+        listen_button_layout = QHBoxLayout()
+        self.listen_button = QPushButton('监听选中')
+        self.unlisten_button = QPushButton('取消监听')
+        listen_button_layout.addWidget(self.listen_button)
+        listen_button_layout.addWidget(self.unlisten_button)
+        left_layout.addLayout(listen_button_layout)
+        
         left_panel.setLayout(left_layout)
         
         # 右侧面板 - 日志显示
@@ -310,6 +318,8 @@ class ChatWindow(QMainWindow):
         self.add_button.clicked.connect(self.add_target)
         self.remove_button.clicked.connect(self.remove_target)
         self.config_button.clicked.connect(self.show_config_dialog)
+        self.listen_button.clicked.connect(self.listen_selected_target)
+        self.unlisten_button.clicked.connect(self.unlisten_selected_target)
         
         # 加载已有监听目标
         self.load_targets()
@@ -428,10 +438,16 @@ class ChatWindow(QMainWindow):
     def set_running_state(self, is_running: bool) -> None:
         """设置运行状态"""
         self.start_button.setEnabled(not is_running)  # 运行时禁用开始按钮
-        self.stop_button.setEnabled(True)  # 停止按钮始终可用
+        self.stop_button.setEnabled(is_running)  # 只有运行时启用停止按钮
         self.config_button.setEnabled(not is_running)  # 运行时禁用配置按钮
-        self.add_button.setEnabled(not is_running)  # 运行时禁用添加按钮
-        self.remove_button.setEnabled(not is_running)  # 运行时禁用移除按钮
+        
+        # 添加和移除按钮始终可用
+        self.add_button.setEnabled(True)
+        self.remove_button.setEnabled(True)
+        
+        # 监听按钮根据运行状态设置
+        self.listen_button.setEnabled(not is_running)
+        self.unlisten_button.setEnabled(is_running)
     
     
     def show_config_dialog(self):
@@ -449,3 +465,40 @@ class ChatWindow(QMainWindow):
         """设置开始/停止按钮的启用状态"""
         self.start_button.setEnabled(enabled)
         self.stop_button.setEnabled(enabled)
+
+    def listen_selected_target(self):
+        """监听选中的目标"""
+        current_item = self.target_list.currentItem()
+        if not current_item:
+            QMessageBox.warning(self, '警告', '请先选择要监听的目标')
+            return
+            
+        target = current_item.text()
+        # 调用主程序的方法添加监听
+        if hasattr(self, 'add_listener_handler') and self.add_listener_handler:
+            self.add_listener_handler(target)
+        else:
+            self.update_status(f"无法添加监听: {target}，功能未初始化")
+    
+    def unlisten_selected_target(self):
+        """取消监听选中的目标"""
+        current_item = self.target_list.currentItem()
+        if not current_item:
+            QMessageBox.warning(self, '警告', '请先选择要取消监听的目标')
+            return
+            
+        target = current_item.text()
+        # 调用主程序的方法取消监听
+        if hasattr(self, 'remove_listener_handler') and self.remove_listener_handler:
+            self.remove_listener_handler(target)
+        else:
+            self.update_status(f"无法取消监听: {target}，功能未初始化")
+
+    # 添加设置处理器的方法
+    def set_add_listener_handler(self, handler):
+        """设置添加监听处理器"""
+        self.add_listener_handler = handler
+
+    def set_remove_listener_handler(self, handler):
+        """设置取消监听处理器"""
+        self.remove_listener_handler = handler

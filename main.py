@@ -161,16 +161,81 @@ class MainApp:
         qInstallMessageHandler(qt_message_handler)
         
         self.window = ChatWindow(UI_CONFIG)
-        self.wechat = None
-        self.ai = None
+        
+        # 提前初始化微信处理器
+        self.logger.info("提前初始化微信处理器")
+        self.wechat = WeChatHandler(WECHAT_CONFIG)
+        self.wechat.set_ui(self.window)
+        
+        # 提前初始化AI处理器
+        self.logger.info("提前初始化AI处理器")
+        self.ai = AIHandler(AI_CONFIG)
+        
+        # 尝试连接微信客户端
+        try:
+            self.logger.info("尝试连接微信客户端")
+            nickname = self.wechat.initialize()
+            self.logger.info(f"已连接微信账号: {nickname}")
+            self.window.update_status(f'已连接微信账号: {nickname}')
+        except Exception as e:
+            self.logger.error(f"微信初始化失败: {str(e)}", exc_info=True)
+            self.window.update_status(f'微信初始化失败: {str(e)}，请确保微信已登录')
+        
         self.monitor = None
         
         self.setup_handlers()
     
+    # 在 MainApp 类的 setup_handlers 方法中添加以下代码
+    
     def setup_handlers(self):
         self.window.set_start_handler(self.start_monitoring)
         self.window.set_stop_handler(self.stop_monitoring)
+        # 添加监听和取消监听的处理器
+        self.window.set_add_listener_handler(self.add_single_listener)
+        self.window.set_remove_listener_handler(self.remove_single_listener)
         self.logger.info("设置UI事件处理器完成")
+    
+    # 添加以下方法到 MainApp 类
+    
+    def add_single_listener(self, target):
+        """添加单个监听目标"""
+        if not self.wechat:
+            self.window.update_status(f"无法添加监听: {target}，微信处理器未初始化")
+            return
+            
+        try:
+            self.window.update_status(f"正在添加监听目标: {target}...")
+            success = self.wechat.add_listener(target)
+            if success:
+                self.window.update_status(f"成功添加监听目标: {target}")
+                # 更新监控器的监听目标
+                if self.monitor:
+                    self.monitor.update_listen_targets(self.wechat.listen_targets)
+            else:
+                self.window.update_status(f"添加监听目标失败: {target}")
+        except Exception as e:
+            self.logger.error(f"添加监听目标异常: {str(e)}", exc_info=True)
+            self.window.update_status(f"添加监听出错: {str(e)}")
+    
+    def remove_single_listener(self, target):
+        """移除单个监听目标"""
+        if not self.wechat:
+            self.window.update_status(f"无法移除监听: {target}，微信处理器未初始化")
+            return
+            
+        try:
+            self.window.update_status(f"正在移除监听目标: {target}...")
+            success = self.wechat.remove_listener(target)
+            if success:
+                self.window.update_status(f"成功移除监听目标: {target}")
+                # 更新监控器的监听目标
+                if self.monitor:
+                    self.monitor.update_listen_targets(self.wechat.listen_targets)
+            else:
+                self.window.update_status(f"移除监听目标失败: {target}")
+        except Exception as e:
+            self.logger.error(f"移除监听目标异常: {str(e)}", exc_info=True)
+            self.window.update_status(f"移除监听出错: {str(e)}")
     
     def start_monitoring(self):
         try:
@@ -196,22 +261,22 @@ class MainApp:
                 'top_p': config['ai_behavior']['top_p']
             })
             
+            # 更新微信配置
             if config['listen_targets']:
                 WECHAT_CONFIG['listen_targets'] = config['listen_targets']
+                self.wechat.listen_targets = config['listen_targets']
             
-            # 初始化处理器
-            self.logger.info("初始化微信处理器")
-            self.wechat = WeChatHandler(WECHAT_CONFIG)
-            self.wechat.set_ui(self.window)  # 添加这行，设置UI引用
+            # 检查微信是否已初始化，如果没有或者出错，尝试重新初始化
+            if not hasattr(self.wechat, 'wx') or not self.wechat.wx:
+                self.logger.info("微信未初始化，尝试重新初始化")
+                self.wechat = WeChatHandler(WECHAT_CONFIG)
+                self.wechat.set_ui(self.window)
+                nickname = self.wechat.initialize()
+                self.logger.info(f"已重新连接微信账号: {nickname}")
+                self.window.update_status(f'已重新连接微信账号: {nickname}')
             
-            self.logger.info("初始化AI处理器")
-            self.ai = AIHandler(AI_CONFIG)
-            
-            # 初始化微信
-            self.logger.info("连接微信客户端")
-            nickname = self.wechat.initialize()
-            self.logger.info(f"已连接微信账号: {nickname}")
-            self.window.update_status(f'已连接微信账号: {nickname}')
+            # 更新AI处理器配置
+            self.ai.update_config(AI_CONFIG)
             
             # 先创建监控实例
             self.logger.info("创建消息监控器")
