@@ -243,6 +243,9 @@ class ChatWindow(QMainWindow):
         self.setWindowTitle(self.config.get('window_title', '微信AI助手'))
         self.resize(*self.config.get('window_size', (800, 600)))
         
+        # 设置窗口始终在最上层
+        self.setWindowFlags(self.windowFlags() | Qt.WindowStaysOnTopHint)
+        
         # 创建中心部件和布局
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
