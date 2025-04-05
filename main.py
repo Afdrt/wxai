@@ -6,6 +6,7 @@ from typing import Optional
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtCore import QThread, pyqtSignal, Qt, QtCriticalMsg, QtWarningMsg, QtFatalMsg, qInstallMessageHandler
 from PyQt5.QtGui import QTextCursor
+import pywintypes  # 添加这一行
 from src.config import WECHAT_CONFIG, AI_CONFIG, UI_CONFIG
 from src.wechat_handler import WeChatHandler
 from src.ai_handler import AIHandler
@@ -164,8 +165,14 @@ class MainApp:
         
         # 提前初始化微信处理器
         self.logger.info("提前初始化微信处理器")
-        self.wechat = WeChatHandler(WECHAT_CONFIG)
-        self.wechat.set_ui(self.window)
+        try:
+            self.wechat = WeChatHandler(WECHAT_CONFIG)
+            self.wechat.set_ui(self.window)
+        except Exception as e:
+            self.logger.error(f"微信处理器初始化失败: {str(e)}", exc_info=True)
+            from PyQt5.QtWidgets import QMessageBox
+            QMessageBox.critical(None, "错误", "微信未打开或无法访问，请先打开微信并确保已登录。")
+            sys.exit(1)
         
         # 提前初始化AI处理器
         self.logger.info("提前初始化AI处理器")
@@ -428,10 +435,18 @@ class MainApp:
 if __name__ == '__main__':
     try:
         logger.info("=== 微信AI助手启动 ===")
-        app = MainApp()
-        exit_code = app.run()
-        logger.info(f"=== 微信AI助手退出，退出码: {exit_code} ===")
-        sys.exit(exit_code)
+        try:
+            app = MainApp()
+            exit_code = app.run()
+            logger.info(f"=== 微信AI助手退出，退出码: {exit_code} ===")
+            sys.exit(exit_code)
+        except pywintypes.error as e:
+            if e.winerror == 1400:  # 无效的窗口句柄
+                from PyQt5.QtWidgets import QMessageBox
+                logger.error("微信未打开或无法访问", exc_info=True)
+                QMessageBox.critical(None, "错误", "微信未打开或无法访问，请先打开微信并确保已登录。")
+                sys.exit(1)
+            raise  # 重新抛出其他类型的pywintypes错误
     except Exception as e:
         logger.critical(f"程序崩溃: {str(e)}", exc_info=True)
         sys.exit(1)
