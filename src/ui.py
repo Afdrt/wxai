@@ -439,16 +439,6 @@ class ChatWindow(QMainWindow):
         """设置运行状态"""
         self.start_button.setEnabled(not is_running)  # 运行时禁用开始按钮
         self.stop_button.setEnabled(is_running)  # 只有运行时启用停止按钮
-        self.config_button.setEnabled(not is_running)  # 运行时禁用配置按钮
-        
-        # 添加和移除按钮始终可用
-        self.add_button.setEnabled(True)
-        self.remove_button.setEnabled(True)
-        
-        # 监听按钮根据运行状态设置
-        self.listen_button.setEnabled(not is_running)
-        self.unlisten_button.setEnabled(is_running)
-    
     
     def show_config_dialog(self):
         """显示配置对话框"""
@@ -456,11 +446,9 @@ class ChatWindow(QMainWindow):
         if dialog.exec_() == QDialog.Accepted:
             self.config.update(dialog.get_config())
             self.save_config(self.config)
-
     def is_auto_reply_enabled(self) -> bool:
             """获取自动回复开关状态"""
             return self.auto_reply_checkbox.isChecked()
-
     def set_buttons_enabled(self, enabled):
         """设置开始/停止按钮的启用状态"""
         self.start_button.setEnabled(enabled)
