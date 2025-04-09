@@ -50,5 +50,5 @@ coll = COLLECT(
     strip=False,
     upx=True,
     upx_exclude=[],
-    name='微信AI助手',
+    name='WeChat Robot',
 )
