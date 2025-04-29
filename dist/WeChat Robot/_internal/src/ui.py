@@ -344,6 +344,12 @@ class ConfigDialog(QDialog):
             # 获取UI中的值
             new_config = self.get_config()
             
+            # 验证API Key
+            if not new_config['api_key'].strip():
+                QMessageBox.warning(self, '配置错误', 'API Key 不能为空，请输入有效的 API Key。')
+                self.api_key_input.setFocus()
+                return
+            
             # 保存到文件
             with open(self.config_file, 'w', encoding='utf-8') as f:
                 json.dump(new_config, f, indent=4, ensure_ascii=False)
@@ -768,6 +774,10 @@ class ChatWindow(QMainWindow):
             self.config.update(dialog.get_config())
             self.save_config(self.config)
             self.update_status("配置已更新")
+            
+            # 检查配置完整性
+            if not self.config.get('api_key'):
+                self.update_status("警告: API Key 未设置，请在开始监听前完成配置")
     
     def is_auto_reply_enabled(self) -> bool:
         """获取自动回复开关状态"""

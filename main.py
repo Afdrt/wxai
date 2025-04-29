@@ -176,7 +176,12 @@ class MainApp:
         
         # 提前初始化AI处理器
         self.logger.info("提前初始化AI处理器")
-        self.ai = AIHandler(AI_CONFIG)
+        try:
+            self.ai = AIHandler(AI_CONFIG)
+        except Exception as e:
+            self.logger.warning(f"AI处理器初始化失败: {str(e)}")
+            self.ai = None  # 设置为None，后续在start_monitoring时再次尝试初始化
+            self.window.update_status(f"AI服务初始化失败: {str(e)}，请在配置中设置有效的API Key")
         
         # 尝试连接微信客户端
         try:
@@ -252,6 +257,8 @@ class MainApp:
             if not config['api_key']:
                 self.logger.error("API Key未设置")
                 self.window.update_status('错误: 请设置API Key')
+                from PyQt5.QtWidgets import QMessageBox
+                QMessageBox.warning(self.window, "配置错误", "API Key未设置，请先在配置中设置有效的API Key。")
                 return
             
             # 更新配置
@@ -267,6 +274,30 @@ class MainApp:
                 'frequency_penalty': config['ai_behavior']['frequency_penalty'],
                 'top_p': config['ai_behavior']['top_p']
             })
+            
+            # 检查AI处理器是否已初始化，如果没有或者出错，尝试重新初始化
+            if not self.ai:
+                self.logger.info("AI处理器未初始化，尝试初始化")
+                try:
+                    self.ai = AIHandler(AI_CONFIG)
+                    self.logger.info("AI处理器初始化成功")
+                except Exception as e:
+                    self.logger.error(f"AI处理器初始化失败: {str(e)}")
+                    self.window.update_status(f'错误: AI处理器初始化失败: {str(e)}')
+                    from PyQt5.QtWidgets import QMessageBox
+                    QMessageBox.critical(self.window, "错误", f"AI处理器初始化失败: {str(e)}")
+                    return
+            else:
+                # 更新AI处理器配置
+                try:
+                    self.ai.update_config(AI_CONFIG)
+                    self.logger.info("AI处理器配置已更新")
+                except Exception as e:
+                    self.logger.error(f"更新AI处理器配置失败: {str(e)}")
+                    self.window.update_status(f'错误: 更新AI处理器配置失败: {str(e)}')
+                    from PyQt5.QtWidgets import QMessageBox
+                    QMessageBox.critical(self.window, "错误", f"更新AI处理器配置失败: {str(e)}")
+                    return
             
             # 检查微信是否已初始化，如果没有或者出错，尝试重新初始化
             if not self.wechat or not hasattr(self.wechat, 'wx') or not self.wechat.wx:

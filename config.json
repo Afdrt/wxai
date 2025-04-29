@@ -6,8 +6,8 @@
     ],
     "api_key": "",
     "listen_targets": [],
-    "service": "https://api.siliconflow.cn/v1",
-    "model": "66666",
+    "service": "",
+    "model": "",
     "active_targets": [],
     "ai_behavior": {
         "system_prompt": "你是一个友好的AI助手，请用简洁自然的方式回复用户的问题。",
